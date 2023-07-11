@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  client:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment: 
+      API_URL: https://webapp-230621221913.azurewebsites.net/api
+    ports:
+    - 3000:80
