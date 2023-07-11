@@ -171,7 +171,7 @@ export default defineConfig({
               name: 'Phiếu xuất kho',
               icon: 'shopping',
               path: '/transferorders/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN, ROLE_DATA.STAFF],
+              authority: [ROLE_DATA.STAFF,ROLE_DATA.SYSTEM_ADMIN],
               routes: [
                 {
                   path: '/transferorders/',
@@ -230,21 +230,21 @@ export default defineConfig({
               name: 'Xe',
               icon: 'shop',
               component: './v_vehicle/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN],
+              authority:  [ROLE_DATA.ASSESSOR, ROLE_DATA.STAFF,ROLE_DATA.SELLER,ROLE_DATA.SYSTEM_ADMIN],
             },
             {
               path: '/vehicleowners',
               name: 'Chủ sở hữu',
               icon: 'user',
               component: './v_vehicleowner/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN],
+              authority: [ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
             },
             {
               path: '/customers',
               name: 'Khách hàng',
               icon: 'user',
               component: './v_customer/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN],
+              authority: [ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
             },
             {
               name: 'Tài khoản',
