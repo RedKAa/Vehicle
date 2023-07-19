@@ -1,6 +1,6 @@
 import AsyncButton from '@/components/AsyncButton';
-import SaleOrderForm from '@/components/Form/v_SaleOrderForm/SaleOrderForm';
-import { createSaleorder } from '@/services/v_saleorder';
+import TransferOrderForm from '@/components/Form/v_TransferOrderForm/TransferOrderForm';
+import { createTransferorder } from '@/services/v_transferorder';
 import { getCurrentAdminId, getCurrentStaffId } from '@/utils/utils';
 import { PageContainer } from '@ant-design/pro-layout';
 import {
@@ -18,48 +18,49 @@ const { RangePicker } = DatePicker;
 
 const FormItem = Form.Item;
 
-const CreateSaleOrder = (props) => {
+const CreateTransferOrder = (props) => {
   const [form] = Form.useForm();
   const history = useHistory();
 
   const [createError, setError] = useState(null);
 
-  const onCreateSaleOrder = () => {
+  const onCreateTransferOrder = () => {
     let staffId = getCurrentStaffId();
     let adminId = getCurrentAdminId();
     return form.validateFields()
-    .then((saleorder) => {
+    .then((transferorder) => {
       let tls = [];
-      for (let i = 0; i <saleorder.vehicleIds; i++) {
-        tls.push({
-          "status": "Active",
-          "vehicleId": saleorder.vehicleIds[i],
-          "wareHouseId": null,
-          "picId": null,
-          "amount": 0,
-          "note": ""
-        })
-      }
+      // for (let i = 0; i < transferorder.vehicleIds.length; i++) {
+      //   tls.push({
+      //     "status": "Active",
+      //     "vehicleId": transferorder.vehicleIds[i],
+      //     "wareHouseId": null,
+      //     "picId": null,
+      //     "amount": 0,
+      //     "note": ""
+      //   })
+      // }
 
-      const normalizedData = { ...saleorder,
-        status: saleorder.status ? 'Active' : 'Disable',
+      const normalizedData = { ...transferorder,
+        status: transferorder.status ? 'Active' : 'Disable',
         transaction: {
-          transactionName: "Phiếu bán hàng",
+          transactionName: "Phiếu xuất kho",
           transactionType: "SO",
-          totalAmount: saleorder.totalAmount,
+          totalAmount: 0,
           transactionLines: [
             ...tls
           ]
         }
       };
-      return createSaleorder(normalizedData)
+      return createTransferorder(normalizedData)
     })
     .then(() => {
-      history.replace('/saleorders/');
+      history.replace('/transferorders/');
     })
     .catch((err) => {
       setError(err);
       console.log(createError);
+      history.replace('/transferorders/');
     })
   };
 
@@ -69,27 +70,27 @@ const CreateSaleOrder = (props) => {
       <Card bordered={false}>
         <Form
           layout="vertical"
-          onFinish={(values) => console.log('Create SaleOrder', values)}
-          name="create-saleorder-form"
+          onFinish={(values) => console.log('Create TransferOrder', values)}
+          name="create-transferorder-form"
           form={form}
           scrollToFirstError
         >
           <Row justify="space-between">
-            <Typography.Title level={3}>Thông tin Phiếu bán hàng</Typography.Title>
+            <Typography.Title level={3}>Thông tin Phiếu xuất kho</Typography.Title>
             <Affix offsetTop={5}>
               <AsyncButton
                 title="Tạo"
-                onClick={onCreateSaleOrder}
+                onClick={onCreateTransferOrder}
                 btnProps={{ type: "primary"}}
                 htmlType="submit"
               />
             </Affix>
           </Row>
-          <SaleOrderForm createPage/>
+          <TransferOrderForm createPage SOmode/>
         </Form>
       </Card>
     </PageContainer>
   );
 };
 
-export default CreateSaleOrder;
+export default CreateTransferOrder;

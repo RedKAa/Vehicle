@@ -108,7 +108,7 @@ export default defineConfig({
               authority: [ROLE_DATA.SYSTEM_ADMIN],
             },
             {
-              name: 'Phiếu nhập',
+              name: 'Phiếu nhập xe',
               icon: 'shopping',
               path: '/itemreceipts/',
               authority: [ROLE_DATA.SYSTEM_ADMIN, ROLE_DATA.STAFF, ROLE_DATA.ASSESSOR],
@@ -118,19 +118,19 @@ export default defineConfig({
                   redirect: '/itemreceipts/index',
                 },
                 {
-                  name: 'index',
+                  name: 'Phiếu nhập xe',
                   hideInMenu: true,
                   path: '/itemreceipts/index',
                   component: './v_itemreceipt/index',
                 },
                 {
-                  name: 'create',
+                  name: 'Tạo phiếu nhập xe',
                   hideInMenu: true,
                   path: '/itemreceipts/create',
                   component: './v_itemreceipt/create',
                 },
                 {
-                  name: 'update',
+                  name: 'Cập nhật phiếu nhập xe',
                   hideInMenu: true,
                   path: '/itemreceipts/:updateId',
                   component: './v_itemreceipt/[updateId]',
@@ -148,13 +148,13 @@ export default defineConfig({
                   redirect: '/saleorders/index',
                 },
                 {
-                  name: 'index',
+                  name: 'Phiếu bán hàng',
                   hideInMenu: true,
                   path: '/saleorders/index',
                   component: './v_saleorder/index',
                 },
                 {
-                  name: 'create',
+                  name: 'Tạo phiếu bán hàng',
                   hideInMenu: true,
                   path: '/saleorders/create',
                   component: './v_saleorder/create',
@@ -168,7 +168,7 @@ export default defineConfig({
               ],
             }, //end
             {
-              name: 'Phiếu xuất kho',
+              name: 'Phiếu nhập/xuất kho',
               icon: 'shopping',
               path: '/transferorders/',
               authority: [ROLE_DATA.STAFF,ROLE_DATA.SYSTEM_ADMIN],
@@ -178,16 +178,22 @@ export default defineConfig({
                   redirect: '/transferorders/index',
                 },
                 {
-                  name: 'Danh sách phiếu xuất kho',
+                  name: 'Danh sách phiếu nhập/xuất kho',
                   hideInMenu: true,
                   path: '/transferorders/index',
                   component: './v_transferorder/index',
                 },
                 {
-                  name: 'create',
+                  name: 'Tạo phiếu nhập kho',
                   hideInMenu: true,
-                  path: '/transferorders/create',
-                  component: './v_transferorder/create',
+                  path: '/transferorders/create_ir',
+                  component: './v_transferorder/create_ir',
+                },
+                {
+                  name: 'Tạo phiếu xuất kho',
+                  hideInMenu: true,
+                  path: '/transferorders/create_so',
+                  component: './v_transferorder/create_so',
                 },
                 // {
                 //   name: 'update',
@@ -257,7 +263,7 @@ export default defineConfig({
                   redirect: '/profile/index',
                 },
                 {
-                  name: 'index',
+                  name: 'tài khoản người dùng',
                   hideInMenu: true,
                   path: '/profile/index',
                   component: './profile/index',

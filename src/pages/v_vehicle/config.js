@@ -11,6 +11,16 @@ export const columns = [
     hideInForm: true,
   },
   {
+    title: 'Ảnh',
+    dataIndex: 'imgs',
+    hideInSearch: true,
+    render: (_, { imgs }) =>  imgs && (<Image
+    width={100}
+    height={150}
+    src={imgs}
+  />)
+  },
+  {
     title: 'Mẫu xe',
     dataIndex: 'carModel',
     valueType: 'select',

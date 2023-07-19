@@ -4,6 +4,7 @@ import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons
 
 import './index.css';
 import styles from './style.less';
+import { normalizeImgs } from '@/utils/utils';
 
 function beforeUpload(file) {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -36,12 +37,23 @@ const ImageUploader = ({ multiple = false, onChange: onChangeForm, disable = fal
         return;
       }
       if (info.file.status === 'done') {
-        const fileData = multiple ? info.fileList : info.file;
-        onChangeForm({ fileList: multiple ? fileData : [fileData] });
-        setFileList(multiple ? fileData : [fileData]);
+        console.log('info',info)
+        if(multiple) {
+          setFileList(normalizeImgs(fileList ? [...fileList, info.file] : [info.file]));
+          onChangeForm({ fileList: normalizeImgs(fileList ? [...fileList, info.file] : [info.file]) });
+        } else {
+          onChangeForm({ fileList: [info.file] });
+          setFileList([info.file]);
+        }
         message.success('Upload thành công');
         setLoading(false);
         return;
+        // const fileData = multiple ? info.fileList : info.file;
+        // onChangeForm({ fileList: multiple ? fileData : [fileData] });
+        // setFileList(multiple ? fileData : [fileData]);
+        // message.success('Upload thành công');
+        // setLoading(false);
+        // return;
       }
       if (info.file.status === 'error') {
         message.error('Lỗi khi upload file');
@@ -68,6 +80,23 @@ const ImageUploader = ({ multiple = false, onChange: onChangeForm, disable = fal
           fallback={failureImg}
         />
       );
+    }
+    if (fileList && typeof fileList !== 'string' && multiple) {
+      var imgs = [];
+      for (let i = 0; i < fileList.length; i++) {
+        let { name, response: imgUrl } = fileList[i];
+        let src = imgUrl !== undefined ? imgUrl : fileList[i].toString();
+        imgs.push(<Image
+          className={styles.imageContainer}
+          style={{ width: '102px', height: '102px' }}
+          width={102}
+          height={102}
+          alt={name}
+          src={src}
+          fallback={failureImg}
+        />)
+      }
+      return imgs;
     }
   };
 

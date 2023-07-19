@@ -1,6 +1,16 @@
 
 import request from '@/utils/requestServer';
 
+export const searchSaleorderById = (id) => {
+  return request.get('/saleorders', {
+    params: {
+      'id': id,
+      'status': 'Active'
+    },
+    useCache: true,
+  });
+};
+
 export const createSaleorder = (saleorder) => {
   return request.post(`/saleorders`, {
     data: {

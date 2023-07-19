@@ -2,6 +2,7 @@
 import React from 'react';
 import { Select } from 'antd';
 import { formatCurrency } from '@/utils/utils';
+import moment from 'moment';
 
 export const buildCategoriesOption = (data) =>
   data?.map(({ id: cate_id, category_name: cate_name }) => (
@@ -55,6 +56,19 @@ const ActiveColorSchema = {
   "Active": "green",
   "Disable": "gray"
 }
+const IRStatus = {
+  VehicleOwnerOpen: 'Khởi tạo',
+  WaitingForAssessment: 'Đợi thẩm định',
+  Submit: 'Đợi kiểm duyệt',
+  Reject: 'Không được duyệt',
+  Approved: 'Đã duyệt'
+}
+const SOStatus = {
+  Open: 'Khởi tạo',
+  PendingApproval: 'Đợi kiểm duyệt',
+  Reject: 'Không được duyệt',
+  Approved: 'Đã duyệt',
+}
 export const buildServiceTypesOption = (data) =>
   data?.map(({ id, name, status }) => {
    return (
@@ -103,6 +117,28 @@ export const buildVehicleOption = (data) =>
     </Select.Option>
   )
 });
+export const builIROption = (data) =>
+  data?.map(({ id, itemReceiptStatus, createAt }) => {
+   return (
+    <Select.Option value={id} key={id}>
+      <div style={{display: 'flex', justifyContent:'space-between'}}>
+        <span style={{display: 'inline-block'}}>ID: {id}</span> <span style={{display: 'inline-block', fontWeight: 'bold', color: ActiveColorSchema.Active}}><pre>{`Tạo lúc: ${moment(createAt).format('mm:HH DD-MM-YYYY')}          Trạng thái: ${IRStatus[itemReceiptStatus]}`}</pre></span>
+      </div>
+    </Select.Option>
+  )
+});
+
+export const builSOOption = (data) =>
+  data?.map(({ id, approvalStatus, createAt }) => {
+   return (
+    <Select.Option value={id} key={id}>
+      <div style={{display: 'flex', justifyContent:'space-between'}}>
+        <span style={{display: 'inline-block'}}>ID: {id}</span> <span style={{display: 'inline-block', fontWeight: 'bold', color: ActiveColorSchema.Active}}><pre>{`Tạo lúc: ${moment(createAt).format('mm:HH DD-MM-YYYY')}          Trạng thái: ${SOStatus[approvalStatus]}`}</pre></span>
+      </div>
+    </Select.Option>
+  )
+});
+
 export const buildVehicleOwnerOption = (data) =>
   data?.map(({ id, name, phone, status }) => {
    return (

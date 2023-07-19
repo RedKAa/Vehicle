@@ -55,6 +55,36 @@ const TOsPage = ({ history }) => {
   const dcolumns = [
     ...columns,
     {
+      title: 'Nhân viên',
+      sorter: true,
+      dataIndex: 'staff',
+      hideInForm: true,
+      hideInTable: false,
+      search: false,
+      render: (_, { staff }) => staff ? (
+        <ModalForm
+          title="Nhân viên"
+          name="upadte-account"
+          key={`upadte-account_${staff.name}`}
+          initialValues={staff.user}
+          modalProps={{
+            destroyOnClose: true,
+          }}
+          submitter={{
+            searchConfig: {
+              submitText: 'Ok',
+          },
+          render: (props, doms) => {
+            return [
+            ];
+          },
+          }}
+          trigger={<Button type="link">{staff.name}</Button>}
+        >
+          <AccountForm updateMode/>
+        </ModalForm>) : <></>
+    },
+    {
       title: 'Gửi Duyệt',
       hideInForm: true,
       hideInTable: (role !== 'Staff' && role !== 'Admin'),
@@ -112,13 +142,23 @@ const TOsPage = ({ history }) => {
             <Button
             type="primary"
             onClick={() => {
-              history.push('/transferorders/create');
+              history.push('/transferorders/create_ir');
             }}
             icon={<PlusOutlined />}
             key={selectedRowKeys[0]}
           >
-            Tạo mới
-          </Button>
+            Tạo phiếu nhập kho
+          </Button>,
+          <Button
+          type="primary"
+          onClick={() => {
+            history.push('/transferorders/create_so');
+          }}
+          icon={<PlusOutlined />}
+          key={selectedRowKeys[0]}
+        >
+          Tạo phiếu xuất kho
+        </Button>
         ]}
         rowKey="id"
         resource="transferorders"

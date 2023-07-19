@@ -267,6 +267,18 @@ export const normalizeImg = ([firstImg]) => {
   const { response } = firstImg || {};
   return response;
 };
+export const normalizeImgs = (data) => {
+  let imgs = [];
+  for (let i = 0; i < data.length; i++) {
+    if(typeof data[i] === 'string') {
+      imgs.push(data[i]);
+    } else if(typeof data[i] === 'object') {
+      const { response } = data[i];
+      imgs.push(response.toString());
+    }
+  }
+  return imgs;
+};
 
 export const renderDayMenu = (dayFilter = []) => dayFilter?.map((dayIndex) => daysInWeek[dayIndex]);
 

@@ -94,7 +94,7 @@ const IRsPage = ({ history }) => {
           title="Thẩm định viên"
           name="upadte-account"
           key={`upadte-account_${assessor.name}`}
-          initialValues={assessor}
+          initialValues={assessor.user}
           modalProps={{
             destroyOnClose: true,
           }}
@@ -124,7 +124,7 @@ const IRsPage = ({ history }) => {
           title="Nhân viên"
           name="upadte-account"
           key={`upadte-account_${staff.name}`}
-          initialValues={staff}
+          initialValues={staff.user}
           modalProps={{
             destroyOnClose: true,
           }}

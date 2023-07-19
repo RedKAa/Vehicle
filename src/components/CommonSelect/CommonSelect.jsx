@@ -8,7 +8,7 @@ import { getCurrentStore } from '@/utils/utils';
 import { Empty, Radio, Select, Spin } from 'antd';
 import { useIntl } from 'umi';
 import React, { useEffect, useState } from 'react';
-import { buildCategoriesOption, buildDefaultOption, buildMenuOption, buildPlacesOption, buildProductsOption, buildProvidersOption, buildSellersOption, buildServicesOption, buildServiceTypesOption, buildVehicleOption, buildVehicleOwnerOption, buildVouchersOption } from './utils';
+import { buildCategoriesOption, buildDefaultOption, buildMenuOption, buildPlacesOption, buildProductsOption, buildProvidersOption, buildSellersOption, buildServicesOption, buildServiceTypesOption, buildVehicleOption, buildVehicleOwnerOption, buildVouchersOption, builIROption, builSOOption } from './utils';
 import { useDebounceFn } from '@umijs/hooks';
 import { getSuppliers, getStoreOfSuppliers } from '@/services/brand';
 import { getProductByName } from '@/services/product';
@@ -24,6 +24,8 @@ import { getVehicleOwnerByPhone } from '@/services/v_vehicleowner';
 import { getVehicleByID, getVehicleByOwnerPhone } from '@/services/v_vehicle';
 import { getCustomerByPhone } from '@/services/v_customer';
 import { getWarehouseByName } from '@/services/v_warehouse';
+import { getItemreceiptById, searchItemreceiptById } from '@/services/v_itemreceipt';
+import { getSaleorderById, searchSaleorderById } from '@/services/v_saleorder';
 
 const { Option } = Select;
 
@@ -350,6 +352,33 @@ const SelectWarehouse = (props) => {
 };
 
 
+const SelectItemReceipt = (props) => {
+  return (
+    <CommonSelect
+      fetchOnFirst={true}
+      allowClear={true}
+      buildOptions={builIROption}
+      onSearch={searchItemreceiptById}
+      normalizeRes={normalizeRes}
+      {...props}
+    />
+  );
+};
+
+const SelectSaleOrder = (props) => {
+  return (
+    <CommonSelect
+      fetchOnFirst={true}
+      allowClear={true}
+      buildOptions={builSOOption}
+      onSearch={searchSaleorderById}
+      normalizeRes={normalizeRes}
+      {...props}
+    />
+  );
+};
+
+
 CommonSelect.SelectProductType = SelectProductType;
 CommonSelect.SelectBlogPostType = SelectBlogPostType;
 CommonSelect.SelectArticleType = SelectArticleType;
@@ -367,6 +396,8 @@ CommonSelect.SelectVehicleOwner = SelectVehicleOwner;
 CommonSelect.SelectVehicle = SelectVehicle;
 CommonSelect.SelectCustomer = SelectCustomer;
 CommonSelect.SelectWarehouse = SelectWarehouse;
+CommonSelect.SelectSaleOrder = SelectSaleOrder;
+CommonSelect.SelectItemReceipt = SelectItemReceipt;
 
 
 CommonSelect.defaultProps = {
@@ -395,6 +426,8 @@ export {
   SelectVehicleOwner,
   SelectVehicle,
   SelectCustomer,
-  SelectWarehouse
+  SelectWarehouse,
+  SelectItemReceipt,
+  SelectSaleOrder
 };
 export default CommonSelect;

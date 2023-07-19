@@ -1,7 +1,6 @@
 import AsyncButton from '@/components/AsyncButton';
 import TransferOrderForm from '@/components/Form/v_TransferOrderForm/TransferOrderForm';
 import { createTransferorder } from '@/services/v_transferorder';
-import { getCurrentAdminId, getCurrentStaffId } from '@/utils/utils';
 import { PageContainer } from '@ant-design/pro-layout';
 import {
   Affix,
@@ -18,28 +17,26 @@ const { RangePicker } = DatePicker;
 
 const FormItem = Form.Item;
 
-const CreateTransferOrder = (props) => {
+const CreateTransferOrderIR = (props) => {
   const [form] = Form.useForm();
   const history = useHistory();
 
   const [createError, setError] = useState(null);
 
   const onCreateTransferOrder = () => {
-    let staffId = getCurrentStaffId();
-    let adminId = getCurrentAdminId();
     return form.validateFields()
     .then((transferorder) => {
       let tls = [];
-      for (let i = 0; i < transferorder.vehicleIds.length; i++) {
-        tls.push({
-          "status": "Active",
-          "vehicleId": transferorder.vehicleIds[i],
-          "wareHouseId": null,
-          "picId": null,
-          "amount": 0,
-          "note": ""
-        })
-      }
+      // for (let i = 0; i < transferorder.vehicleIds.length; i++) {
+      //   tls.push({
+      //     "status": "Active",
+      //     "vehicleId": transferorder.vehicleIds[i],
+      //     "wareHouseId": null,
+      //     "picId": null,
+      //     "amount": 0,
+      //     "note": ""
+      //   })
+      // }
 
       const normalizedData = { ...transferorder,
         status: transferorder.status ? 'Active' : 'Disable',
@@ -52,21 +49,21 @@ const CreateTransferOrder = (props) => {
           ]
         }
       };
-      return createTransferorder(normalizedData);
+      return createTransferorder(normalizedData)
     })
     .then(() => {
-      history.replace('/transferorders/');
+      // history.replace('/transferorders/')
     })
     .catch((err) => {
-      // setError(err);
-      // console.log(createError);
-      history.replace('/transferorders/');
+      setError(err);
+      console.log(createError);
+      // history.replace('/transferorders/')
     })
   };
 
   return (
     <PageContainer>
-      {createError && <Alert message={'Dữ liệu không hợp lệ'} type="warning" closable />}
+      {createError && <Alert message={'Có lỗi xảy ra...'} type="warning" closable />}
       <Card bordered={false}>
         <Form
           layout="vertical"
@@ -76,7 +73,7 @@ const CreateTransferOrder = (props) => {
           scrollToFirstError
         >
           <Row justify="space-between">
-            <Typography.Title level={3}>Thông tin Phiếu xuất kho</Typography.Title>
+            <Typography.Title level={3}>Thông tin Phiếu nhập kho</Typography.Title>
             <Affix offsetTop={5}>
               <AsyncButton
                 title="Tạo"
@@ -86,11 +83,11 @@ const CreateTransferOrder = (props) => {
               />
             </Affix>
           </Row>
-          <TransferOrderForm createPage/>
+          <TransferOrderForm createPage IRmode/>
         </Form>
       </Card>
     </PageContainer>
   );
 };
 
-export default CreateTransferOrder;
+export default CreateTransferOrderIR;

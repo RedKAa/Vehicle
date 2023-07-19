@@ -1,6 +1,16 @@
 
 import request from '@/utils/requestServer';
 
+export const searchItemreceiptById = (id) => {
+  return request.get('/itemreceipts', {
+    params: {
+      'id': id,
+      'status': 'Active'
+    },
+    useCache: true,
+  });
+};
+
 export const createItemreceipt = (itemreceipt) => {
   return request.post(`/itemreceipts`, {
     data: {

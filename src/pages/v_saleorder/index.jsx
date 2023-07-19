@@ -105,7 +105,7 @@ const SOsPage = ({ history }) => {
           title="Nhân viên bán hàng"
           name="upadte-account"
           key={`upadte-account_${seller.name}`}
-          initialValues={seller}
+          initialValues={seller.user}
           modalProps={{
             destroyOnClose: true,
           }}

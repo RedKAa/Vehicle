@@ -1,6 +1,8 @@
 import {
   SelectAssessor,
   SelectCustomer,
+  SelectItemReceipt,
+  SelectSaleOrder,
   SelectVehicle,
   SelectVehicleOwner,
   SelectWarehouse
@@ -14,14 +16,14 @@ import TextArea from 'antd/lib/input/TextArea';
 const { RangePicker } = DatePicker;
 
 
-const TransferOrderForm = ({readonly = false, update = false, createPage = false,detailPage=false, onCreateIR}) => {
+const TransferOrderForm = ({readonly = false, update = false, createPage = false, detailPage=false, onCreateIR, IRmode, SOmode}) => {
 
   return (
     <>
       <Row gutter={16}>
-      {createPage && <Col xs={4}>
+      {createPage && IRmode && <Col xs={4}>
         <FormItem
-          label="Trạng thái phiếu xuất kho"
+          label="Trạng thái phiếu nhập kho"
           name="approvalStatus"
           rules={[{ required: true, message: 'Vui lòng chọn trạng thái' }]}
         >
@@ -39,81 +41,101 @@ const TransferOrderForm = ({readonly = false, update = false, createPage = false
       </Col>
     </Row>
     <Row gutter={24}>
-      <Col xs={24}>
+      {IRmode && <Col xs={24}>
         <FormItem
-          label="Chọn xe"
-          name="vehicleIds"
-          rules={[{ required: true, message: 'Vui lòng chọn xe' }]}
+          label="Chọn phiếu nhập xe"
+          name="itemReceiptId"
+          rules={[{ required: true, message: 'Vui lòng chọn phiếu nhập xe' }]}
           disabled={update}
         >
-          <SelectVehicle
-            placeholder="Tìm kiếm bằng sđt chủ sở hữu..."
+          <SelectItemReceipt
+            placeholder="Tìm kiếm id..."
             fetchOnFirst
             style={{
               width: '100%',
             }}
-            mode="multiple"
           />
         </FormItem>
       </Col>
+      }
+      {SOmode && <Col xs={24}>
+        <FormItem
+          label="Chọn phiếu bán hàng"
+          name="saleOrderId"
+          rules={[{ required: true, message: 'Vui lòng chọn phiếu bán hàng' }]}
+          disabled={update}
+        >
+          <SelectSaleOrder
+            placeholder="Tìm kiếm id..."
+            fetchOnFirst
+            style={{
+              width: '100%',
+            }}
+          />
+        </FormItem>
+      </Col>
+      }
     </Row>
-    <Row gutter={24}>
+    {IRmode && <Row gutter={24}>
       <Col xs={12}>
         <FormItem
-          label="Từ kho"
-          name="fromLocationId"
-          rules={[{ required: true, message: 'Vui lòng chọn kho xuất xe' }]}
-          disabled={update}
-        >
-          <SelectWarehouse
-            placeholder="Tìm kho bằng tên"
-            fetchOnFirst
-            style={{
-              width: '100%',
-            }}
-          />
-        </FormItem>
-      </Col>
-      <Col xs={12}>
-        <FormItem
-          label="Địa chỉ kho xuất"
+          label="Nhập từ địa chỉ"
           name="FromLocationAddress"
-          rules={[{ required: true}]}
-          disabled={update}
-        >
-          <TextArea placeholder='Nhập địa chỉ...'/>
-        </FormItem>
-      </Col>
-    </Row>
-    
-    <Row gutter={16}>
-      <Col xs={12}>
-      <FormItem
-          label="Đến kho(nếu có)"
-          name="toLocationId"
           rules={[{ required: false}]}
           disabled={update}
-      >
-          <SelectWarehouse
-            placeholder="Tìm kho bằng tên"
-            fetchOnFirst
-            style={{
-              width: '100%',
-            }}
-          />
+        >
+          <TextArea placeholder='Nhập địa chỉ...'/>
         </FormItem>
       </Col>
+     <Col xs={12}>
+        <FormItem
+            label="Đến kho"
+            name="toLocationId"
+            rules={[{ required: true, message: 'Vui lòng chọn kho nhập xe' }]}
+            disabled={update}
+        >
+            <SelectWarehouse
+              placeholder="Tìm kho bằng tên"
+              fetchOnFirst
+              style={{
+                width: '100%',
+              }}
+            />
+        </FormItem>
+      </Col>
+      
+    </Row>
+    }
+    {SOmode && <Row gutter={16}>
       <Col xs={12}>
         <FormItem
-          label="Địa chỉ nhận"
+          label="Đến địa địa chỉ"
           name="toLocationAddress"
-          rules={[{ required: true}]}
+          rules={[{ required: false}]}
           disabled={update}
         >
           <TextArea placeholder='Nhập địa chỉ...'/>
         </FormItem>
       </Col>
+      <Col xs={12}>
+        <FormItem
+            label="Từ kho"
+            name="FromLocationId"
+            rules={[{ required: true, message: 'Vui lòng chọn kho xuất xe' }]}
+            disabled={update}
+        >
+            <SelectWarehouse
+              placeholder="Tìm kho bằng tên"
+              fetchOnFirst
+              style={{
+                width: '100%',
+              }}
+            />
+        </FormItem>
+      </Col>
+      
     </Row>
+    }
   </>
   );
 };

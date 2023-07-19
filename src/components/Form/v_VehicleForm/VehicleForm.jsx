@@ -1,8 +1,9 @@
 import ProForm, { ProFormSelect, ProFormText } from '@ant-design/pro-form';
-import { formatWhitespace, normFile, normalizeImg, validatePhoneVN } from '@/utils/utils'; 
+import { formatWhitespace, normFile, normFiles, normalizeImg, normalizeImgs, validatePhoneVN } from '@/utils/utils'; 
 
 import React from 'react';
 import ImageUploader from '@/components/ImageUploader/ImageUploader';
+import { SelectVehicleOwner } from '@/components/CommonSelect/CommonSelect';
 
 
 const VehicleForm = ({readonly = false, update = false,}) => {
@@ -69,7 +70,7 @@ const VehicleForm = ({readonly = false, update = false,}) => {
                 required: true,
                 message: 'số km đã đi >= 0',
                 validator: (_, value) => {
-                  return value.match(/^\d+$/)
+                  return (!isNaN(value) && value.match(/^\d+$/) && parseInt(value) >= 0)
                     ? Promise.resolve()
                     : Promise.reject();
                 },
@@ -93,7 +94,7 @@ const VehicleForm = ({readonly = false, update = false,}) => {
         />
       </ProForm.Group>
       <ProForm.Group>
-      <ProFormText
+      {/* <ProFormText
             rules={[
               {
                 required: true,
@@ -104,8 +105,8 @@ const VehicleForm = ({readonly = false, update = false,}) => {
             name="vehicleOwnerId"
             width="md"
             disabled={update}
-        />
-        <ProFormSelect
+        /> */}
+         <ProFormSelect
           label="Trạng thái"
           rules={[{ required: true, message: 'Vui lòng chọn trạng thái' }]}
           name="status"
@@ -117,18 +118,30 @@ const VehicleForm = ({readonly = false, update = false,}) => {
               value: key,
             }))}
         />
+        <ProForm.Item
+         label="Chủ sở hữu"
+         name="VehicleOwnerId"
+         rules={[{ required: true, message: 'Vui lòng chọn chủ sở hữu' }]}
+         disabled={update}
+         width="md"
+        >
+          <SelectVehicleOwner
+          placeholder="Tìm chủ sở hữu bằng SĐT"
+          fetchOnFirst
+          />
+        </ProForm.Item>
+       
       </ProForm.Group>
       <ProForm.Group>
       {!readonly &&<ProForm.Item
           width="md"
           valuePropName="fileList"
           getValueFromEvent={normFile}
-          normalize={normalizeImg}
-          name="imgs"
+          normalize={normalizeImgs}
+          name="VehicleImgs"
           label="Ảnh"
-          readonly={readonly}
         >
-          <ImageUploader style={{ height: '100%' }}/>
+          <ImageUploader style={{ height: '100%' }} multiple/>
         </ProForm.Item>}
         {readonly && <ProForm.Item
           width="md"

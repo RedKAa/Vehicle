@@ -75,7 +75,7 @@ const UpdateItemreceipt = (props) => {
       normalizedData.itemReceiptStatus = irs[`${normalizedData.itemReceiptStatus}`].text;
 
 
-
+      console.log(normalizedData);
       setFullData({ ...normalizedData });
     }
   },[idata, tdata])

@@ -25,30 +25,27 @@ const CreateItemreceipt = (props) => {
   const [createError, setError] = useState(null);
 
   const onCreateItemreceipt = () => {
-    let staffId = getCurrentStaffId();
-    let adminId = getCurrentAdminId();
     return form.validateFields()
     .then((itemreceipt) => {
-      let tls = [];
-      const normalizedData = { ...itemreceipt,
+      const normalizedData = {
+        ...itemreceipt,
         status: itemreceipt.status ? 'Active' : 'Disable'
       };
-      if(staffId) {normalizedData.staffId = staffId}
-      return createItemreceipt(normalizedData);
+      console.log(normalizedData)
+      return createItemreceipt(normalizedData)
     })
     .then(() => {
       history.replace('/itemreceipts/');
     })
     .catch((err) => {
-      // setError(err);
-      // console.log(createError);
-      history.replace('/itemreceipts/');
+      setError(err);
+      console.log(createError);
     })
   };
 
   return (
     <PageContainer>
-      {createError && <Alert message={'Dữ liệu không hợp lệ'} type="warning" closable />}
+      {createError && <Alert message={'Có lỗi xảy ra...'} type="warning" closable />}
       <Card bordered={false}>
         <Form
           layout="vertical"
@@ -59,14 +56,22 @@ const CreateItemreceipt = (props) => {
         >
           <Row justify="space-between">
             <Typography.Title level={3}>Thông tin Phiếu nhập</Typography.Title>
-            <Affix offsetTop={5}>
-              <AsyncButton
-                title="Tạo"
-                onClick={onCreateItemreceipt}
-                btnProps={{ type: "primary"}}
-                htmlType="submit"
-              />
-            </Affix>
+            <Row>
+              <Affix offsetTop={5}>
+                <AsyncButton
+                  title="Quay lại"
+                  onClick={() =>  history.replace('/itemreceipts/')}
+                />
+              </Affix>
+              <Affix offsetTop={5}>
+                <AsyncButton
+                  title="Tạo"
+                  onClick={onCreateItemreceipt}
+                  btnProps={{ type: "primary"}}
+                  htmlType="submit"
+                />
+              </Affix>
+            </Row>
           </Row>
           <ItemreceiptForm createPage/>
         </Form>
