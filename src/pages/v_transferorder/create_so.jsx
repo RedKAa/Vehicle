@@ -43,6 +43,9 @@ const CreateTransferOrder = (props) => {
 
       const normalizedData = { ...transferorder,
         status: transferorder.status ? 'Active' : 'Disable',
+        fromLocationAddress: null,
+        ToLocationId: null,
+        transferOrderType: "Out",
         transaction: {
           transactionName: "Phiếu xuất kho",
           transactionType: "SO",

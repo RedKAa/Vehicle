@@ -1,16 +1,9 @@
 import {
-  SelectAssessor,
-  SelectCustomer,
   SelectItemReceipt,
   SelectSaleOrder,
-  SelectVehicle,
-  SelectVehicleOwner,
   SelectWarehouse
 } from '@/components/CommonSelect/CommonSelect';
-import ImageUploader from '@/components/ImageUploader/ImageUploader';
-import { normFile, normalizeImg } from '@/utils/utils';
-import { ProFormText, ProFormTextArea } from '@ant-design/pro-form';
-import { Col, DatePicker, Input, Row, Select, Switch } from 'antd';
+import { Col, DatePicker, Row, Select, Switch } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import TextArea from 'antd/lib/input/TextArea';
 const { RangePicker } = DatePicker;

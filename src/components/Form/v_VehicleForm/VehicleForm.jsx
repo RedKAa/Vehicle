@@ -1,9 +1,10 @@
 import ProForm, { ProFormSelect, ProFormText } from '@ant-design/pro-form';
-import { formatWhitespace, normFile, normFiles, normalizeImg, normalizeImgs, validatePhoneVN } from '@/utils/utils'; 
+import { formatWhitespace, normFile, normFiles, normalizeImg, normalizeImgs, validateInt, validatePhoneVN } from '@/utils/utils'; 
 
 import React from 'react';
 import ImageUploader from '@/components/ImageUploader/ImageUploader';
 import { SelectVehicleOwner } from '@/components/CommonSelect/CommonSelect';
+import { DatePicker } from 'antd';
 
 
 const VehicleForm = ({readonly = false, update = false,}) => {
@@ -22,7 +23,19 @@ const VehicleForm = ({readonly = false, update = false,}) => {
             label="Tên xe"
             name="name"
             width="md"
-            readonly={readonly}
+            disable={readonly}
+        />
+        <ProFormSelect
+          label="Mẫu mã"
+          rules={[{ required: true, message: 'Vui lòng chọn mẫu mã' }]}
+          name="carModel"
+          width="md"
+          disable={readonly}
+          options={['Sedan','SUV','Truck','Micro','Van']
+            .map((key) => ({
+              label: key,
+              value: key,
+            }))}
         />
         <ProFormText
             rules={[
@@ -34,7 +47,7 @@ const VehicleForm = ({readonly = false, update = false,}) => {
             label="Xuất xứ"
             name="manufacture"
             width="md"
-            readonly={readonly}
+            disable={readonly}
         />
       </ProForm.Group>
       <ProForm.Group>
@@ -48,38 +61,76 @@ const VehicleForm = ({readonly = false, update = false,}) => {
             label="Màu sắc"
             name="color"
             width="md"
-            readonly={readonly}
+            disable={readonly}
         />
         <ProFormSelect
-          label="Mẫu mã"
-          rules={[{ required: true, message: 'Vui lòng chọn mẫu mã' }]}
-          name="carModel"
-          width="md"
-          readonly={readonly}
-          options={['Sedan','SUV','Truck','Micro','Van']
+          label="Hộp số"
+          rules={[{ required: true, message: 'Vui lòng chọn hộp số' }]}
+          name="gearType"
+          width="xs"
+          disable={readonly}
+          options={[{value: 'Automatic', label: 'Tự động'},{value: 'Manual', label: 'Số sàn'}]
+            .map((data) => ({
+              label: data.label,
+              value: data.value,
+            }))}
+        />
+        <ProFormSelect
+          label="Nhiên liệu"
+          rules={[{ required: true, message: 'Vui lòng chọn hộp số' }]}
+          name="fuelType"
+          width="xs"
+          disable={readonly}
+          options={[{value: 'Electric', label: 'Điện'},{value: 'Gas', label: 'Xăng'},{value: 'Hybrid', label: 'Xăng & Điện'}]
+            .map((data) => ({
+              label: data.label,
+              value: data.value,
+            }))}
+        />
+        <ProFormSelect
+          label="Trạng thái"
+          rules={[{ required: true, message: 'Vui lòng chọn trạng thái' }]}
+          name="status"
+          width="xs"
+          disable={readonly}
+          options={['Active','Disable']
             .map((key) => ({
               label: key,
               value: key,
             }))}
         />
+        <ProForm.Item
+          label="Mua mới"
+          name="newAt"
+          width="md"
+          disable={readonly}
+          rules={[
+            {
+              required: true,
+              message: 'Vui lòng chọn thời điểm mua mới',
+            },
+          ]}
+        >
+        <DatePicker
+          format="YYYY-MM-DD"
+        />
+        </ProForm.Item>
       </ProForm.Group>
       <ProForm.Group>
         <ProFormText
             rules={[
               {
                 required: true,
-                message: 'số km đã đi >= 0',
-                validator: (_, value) => {
-                  return (!isNaN(value) && value.match(/^\d+$/) && parseInt(value) >= 0)
+                message: 'Số km đã đi >= 0',
+                validator: (_, value) => validateInt(value)
                     ? Promise.resolve()
-                    : Promise.reject();
-                },
+                    : Promise.reject()
               },
             ]}
             label="Số km đã đi"
             name="usage"
             width="md"
-            readonly={readonly}
+            disable={readonly}
         />
         <ProFormText
             rules={[
@@ -90,39 +141,14 @@ const VehicleForm = ({readonly = false, update = false,}) => {
             label="Mô tả"
             name="description"
             width="md"
-            disabled={update}
-        />
-      </ProForm.Group>
-      <ProForm.Group>
-      {/* <ProFormText
-            rules={[
-              {
-                required: true,
-                message: 'Không để trống chủ xe',
-              },
-            ]}
-            label="ID Chủ xe"
-            name="vehicleOwnerId"
-            width="md"
-            disabled={update}
-        /> */}
-         <ProFormSelect
-          label="Trạng thái"
-          rules={[{ required: true, message: 'Vui lòng chọn trạng thái' }]}
-          name="status"
-          width="md"
-          readonly={readonly}
-          options={['Active','Disable']
-            .map((key) => ({
-              label: key,
-              value: key,
-            }))}
+            disable={readonly}
+
         />
         <ProForm.Item
          label="Chủ sở hữu"
-         name="VehicleOwnerId"
+         name="vehicleOwnerId"
          rules={[{ required: true, message: 'Vui lòng chọn chủ sở hữu' }]}
-         disabled={update}
+         disable={readonly}
          width="md"
         >
           <SelectVehicleOwner
@@ -130,33 +156,29 @@ const VehicleForm = ({readonly = false, update = false,}) => {
           fetchOnFirst
           />
         </ProForm.Item>
-       
       </ProForm.Group>
       <ProForm.Group>
-      {!readonly &&<ProForm.Item
-          width="md"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
-          normalize={normalizeImgs}
-          name="VehicleImgs"
-          label="Ảnh"
-        >
-          <ImageUploader style={{ height: '100%' }} multiple/>
-        </ProForm.Item>}
-        {readonly && <ProForm.Item
+       <ProForm.Item
           width="md"
           valuePropName="fileList"
           getValueFromEvent={normFile}
           normalize={normalizeImg}
           name="imgs"
-          label="Ảnh"
-          readonly={readonly}
+          label="Ảnh chính"
         >
-         <Image
-          width={200}
-          src="avatarLink"
-        />
-        </ProForm.Item>}
+         <ImageUploader style={{ height: '100%' }}/>
+        </ProForm.Item>
+        <ProForm.Item
+          width="md"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+          normalize={normalizeImgs}
+          name="vehicleImgs"
+          label="Ảnh mô tả"
+          disable={readonly}
+        >
+          <ImageUploader style={{ height: '100%' }} multiple/>
+        </ProForm.Item>
         </ProForm.Group>
     </>
   );

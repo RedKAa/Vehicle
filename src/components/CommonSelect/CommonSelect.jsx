@@ -1,31 +1,24 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import { getCategories } from '@/services/category';
-import { getTags } from '@/services/tags';
-import { getPromotion } from '@/services/promotions';
-import { PRODUCT_TYPE_DATA, BLOGPOST_TYPE, ARTICLE_TYPE_DATA } from '@/utils/constraints';
-import { getCollections, getStore } from '@/services/store';
-import { getCurrentStore } from '@/utils/utils';
-import { Empty, Radio, Select, Spin } from 'antd';
-import { useIntl } from 'umi';
-import React, { useEffect, useState } from 'react';
-import { buildCategoriesOption, buildDefaultOption, buildMenuOption, buildPlacesOption, buildProductsOption, buildProvidersOption, buildSellersOption, buildServicesOption, buildServiceTypesOption, buildVehicleOption, buildVehicleOwnerOption, buildVouchersOption, builIROption, builSOOption } from './utils';
-import { useDebounceFn } from '@umijs/hooks';
-import { getSuppliers, getStoreOfSuppliers } from '@/services/brand';
-import { getProductByName } from '@/services/product';
-import { getMenus } from '@/services/menu';
-import {getAvailableSellersByName} from '@/services/seller';
-import { getServiceType } from '@/services/servicetype';
 import { getPlaces } from '@/services/place';
 import { getProvidersByName } from '@/services/provider';
+import { getAvailableSellersByName } from '@/services/seller';
 import { getServiceByName } from '@/services/service';
-import { getVoucherByName } from '@/services/voucher';
+import { getServiceType } from '@/services/servicetype';
+import { getTags } from '@/services/tags';
 import { getAvailableAssessorsByAddress } from '@/services/v_assessor';
-import { getVehicleOwnerByPhone } from '@/services/v_vehicleowner';
-import { getVehicleByID, getVehicleByOwnerPhone } from '@/services/v_vehicle';
 import { getCustomerByPhone } from '@/services/v_customer';
+import { searchItemreceiptById } from '@/services/v_itemreceipt';
+import { searchSaleorderById } from '@/services/v_saleorder';
+import { getVehicleByOwnerPhoneIR, getVehicleByOwnerPhoneSO } from '@/services/v_vehicle';
+import { getVehicleOwnerByPhone } from '@/services/v_vehicleowner';
 import { getWarehouseByName } from '@/services/v_warehouse';
-import { getItemreceiptById, searchItemreceiptById } from '@/services/v_itemreceipt';
-import { getSaleorderById, searchSaleorderById } from '@/services/v_saleorder';
+import { getVoucherByName } from '@/services/voucher';
+import { ARTICLE_TYPE_DATA, BLOGPOST_TYPE, PRODUCT_TYPE_DATA } from '@/utils/constraints';
+import { useDebounceFn } from '@umijs/hooks';
+import { Empty, Radio, Select, Spin } from 'antd';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'umi';
+import { builIROption, builSOOption, buildDefaultOption, buildPlacesOption, buildProvidersOption, buildSellersOption, buildServicesOption, buildVehicleOption, buildVehicleOwnerOption, buildVouchersOption } from './utils';
 
 const { Option } = Select;
 
@@ -325,13 +318,54 @@ const SelectCustomer = (props) => {
   );
 };
  
-const SelectVehicle = (props) => {
+const SelectVehicleIR = (props) => {
   return (
     <CommonSelect
       fetchOnFirst={true}
       allowClear={true}
       buildOptions={buildVehicleOption}
-      onSearch={getVehicleByOwnerPhone}
+      onSearch={getVehicleByOwnerPhoneIR}
+      normalizeRes={normalizeRes}
+      {...props}
+    />
+  );
+};
+
+const SelectVehicle = (props) => {
+  let {SO, IR} = props;
+  if (SO) {
+    return (
+      <CommonSelect
+        fetchOnFirst={true}
+        allowClear={true}
+        buildOptions={buildVehicleOption}
+        onSearch={getVehicleByOwnerPhoneSO}
+        normalizeRes={normalizeRes}
+        {...props}
+      />
+    );
+  }
+  if (IR) {
+    return (
+      <CommonSelect
+        fetchOnFirst={true}
+        allowClear={true}
+        buildOptions={buildVehicleOption}
+        onSearch={getVehicleByOwnerPhoneIR}
+        normalizeRes={normalizeRes}
+        {...props}
+      />
+    );
+  }
+};
+
+const SelectVehicleSO = (props) => {
+  return (
+    <CommonSelect
+      fetchOnFirst={true}
+      allowClear={true}
+      buildOptions={buildVehicleOption}
+      onSearch={getVehicleByOwnerPhoneSO}
       normalizeRes={normalizeRes}
       {...props}
     />
@@ -358,7 +392,7 @@ const SelectItemReceipt = (props) => {
       fetchOnFirst={true}
       allowClear={true}
       buildOptions={builIROption}
-      onSearch={searchItemreceiptById}
+      onSearch={searchItemreceiptById} 
       normalizeRes={normalizeRes}
       {...props}
     />
@@ -393,6 +427,8 @@ CommonSelect.SelectService = SelectService;
 CommonSelect.SelectVoucher = SelectVoucher;
 CommonSelect.SelectAssessor = SelectAssessor;
 CommonSelect.SelectVehicleOwner = SelectVehicleOwner;
+CommonSelect.SelectVehicleIR = SelectVehicleIR;
+CommonSelect.SelectVehicleSO = SelectVehicleSO;
 CommonSelect.SelectVehicle = SelectVehicle;
 CommonSelect.SelectCustomer = SelectCustomer;
 CommonSelect.SelectWarehouse = SelectWarehouse;
@@ -410,24 +446,11 @@ CommonSelect.defaultProps = {
 };
 
 export {
-  SelectArticleType,
-  SelectProductType,
-  SelectBlogPostType,
-  SelectPaymentType,
-  SelectPromotions,
-  SelectTag,
-  SelectSeller,
-  SelectServiceType,
-  SelectPlace,
-  SelectProvider,
-  SelectService,
-  SelectVoucher,
-  SelectAssessor,
-  SelectVehicleOwner,
-  SelectVehicle,
-  SelectCustomer,
-  SelectWarehouse,
-  SelectItemReceipt,
-  SelectSaleOrder
+  SelectArticleType, SelectAssessor, SelectBlogPostType,
+  SelectCustomer, SelectItemReceipt, SelectPaymentType,
+  SelectPlace, SelectProductType, SelectPromotions, SelectProvider,
+  SelectSaleOrder, SelectSeller, SelectService, SelectServiceType, SelectTag,
+  SelectVehicleIR, SelectVehicleOwner,
+  SelectVoucher, SelectWarehouse,SelectVehicleSO,SelectVehicle
 };
 export default CommonSelect;

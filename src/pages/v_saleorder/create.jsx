@@ -1,7 +1,7 @@
 import AsyncButton from '@/components/AsyncButton';
 import SaleOrderForm from '@/components/Form/v_SaleOrderForm/SaleOrderForm';
 import { createSaleorder } from '@/services/v_saleorder';
-import { getCurrentAdminId, getCurrentStaffId } from '@/utils/utils';
+import { getCurrentAdminId, getCurrentStaffId, getTmpTransaction } from '@/utils/utils';
 import { PageContainer } from '@ant-design/pro-layout';
 import {
   Affix,
@@ -29,28 +29,28 @@ const CreateSaleOrder = (props) => {
     let adminId = getCurrentAdminId();
     return form.validateFields()
     .then((saleorder) => {
-      let tls = [];
-      for (let i = 0; i <saleorder.vehicleIds; i++) {
-        tls.push({
+      let transaction = getTmpTransaction("SO");
+      transaction.transactionLines = [];
+      for (let i = 0; i < saleorder.fields.length; i++) {
+        if(transaction.transactionLines.length > 0) {
+          if(transaction.transactionLines.filter(e => e.vehicleId == saleorder.fields[i].vehicleId).length > 0) {
+            continue;
+          }
+        }
+        transaction.transactionLines.push({
           "status": "Active",
-          "vehicleId": saleorder.vehicleIds[i],
+          "vehicleId": saleorder.fields[i].vehicleId,
           "wareHouseId": null,
           "picId": null,
-          "amount": 0,
+          "amount": saleorder.fields[i].amount,
           "note": ""
         })
       }
+      transaction.totalAmount = saleorder.totalAmount;
 
       const normalizedData = { ...saleorder,
         status: saleorder.status ? 'Active' : 'Disable',
-        transaction: {
-          transactionName: "Phiếu bán hàng",
-          transactionType: "SO",
-          totalAmount: saleorder.totalAmount,
-          transactionLines: [
-            ...tls
-          ]
-        }
+        transaction,
       };
       return createSaleorder(normalizedData)
     })

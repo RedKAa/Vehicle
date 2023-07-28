@@ -19,9 +19,11 @@ import { columns } from './config';
 import VehicleOwnerForm from '@/components/Form/v_VehicleOwnerForm/VehicleOwnerForm';
 import { ModalForm } from '@ant-design/pro-form';
 import AccountForm from '@/components/Form/AccountForm/AccountForm';
-import { SelectAssessor } from '@/components/CommonSelect/CommonSelect';
+import { SelectAssessor, SelectVehicle } from '@/components/CommonSelect/CommonSelect';
 import FormItem from 'antd/es/form/FormItem';
-import { updateItemreceiptById } from '@/services/v_itemreceipt';
+import { updateItemreceiptById, updateItemreceiptVehicles } from '@/services/v_itemreceipt';
+import DynamicField from '@/components/DynamicField';
+import { updateTransactionVehicles } from '@/services/transactionline';
 
 
 
@@ -31,19 +33,45 @@ const IRsPage = ({ history }) => {
   // const [selectedRows, setSelectedRows] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [visible, setVisible] = React.useState(false);
-  const staffId = getCurrentStaffId();
   const assessorId = getCurrentAssessorId();
   const sellerId = getCurrentSellerId();
   const jwtToken = getAppToken();
   const role = getCurrentRole();
 
-
+  const getTransactionByVehicleIDs = (verhicleIds) => {
+    console.log('vids:',verhicleIds);
+      let tlines = [];
+      for (const value of verhicleIds) {
+        tlines.push({
+          "id": null,
+          "transactionId": null,
+          "wareHouseId": null,
+          "picId": null,
+          "amount": 1,
+          "note": null,
+          vehicleId: value,
+        })
+      }
+      return {
+        "id": null,
+        "transactionName": "IR",
+        "totalAmount": null,
+        "transactionDate": null,
+        "transactionType": "IR",
+        "transactionStatus": null,
+        "transactionLines": tlines,
+        "createAt": null,
+        "updateAt": null,
+        "deleteAt": null,
+        "status": "Active",
+        "createById": null,
+        "updateById": null,
+        "deleteById": null
+      }
+  }
 
   let additionalParam = { orderBy: 'createAt-dec'};
 
-  if(staffId) {additionalParam.staffId = staffId};
-  if(assessorId) {additionalParam.assessorId = assessorId};
-  if(sellerId) {additionalParam.sellerId = sellerId};
 
   const rowSelection = {
     onChange: setSelectedRowKeys,
@@ -172,7 +200,7 @@ const IRsPage = ({ history }) => {
         key={`upadte_${item?.id}`}
         initialValues={item.assessor}
         onFinish={(values) =>
-          updateItemreceiptById(item.id, {...item,assessorId: values.id})
+          updateItemreceiptById(item.id, {...item,assessorId: values.id, itemReceiptStatus: 'WaitingForAssessment'})
             .then(ref.current?.reload)
             .then(() => true)
         }
@@ -193,6 +221,33 @@ const IRsPage = ({ history }) => {
                 }}
               />
             </FormItem>
+          </Col>
+          </Row>
+        </ModalForm>
+    },
+    {
+      title: 'Hành động',
+      hideInForm: true,
+      hideInTable: (role !== 'Assessor'),
+      search: false,
+      render: (_,  item ) =>
+        <ModalForm
+        title="Cập nhật xe"
+        modalProps={{
+          destroyOnClose: true,
+        }}
+        name="upadte"
+        key={`upadte_${item?.id}`}
+        initialValues={item.transaction?.transactionLines?.map(tl => ({vehicleId: tl.vehicleId, amount: tl.amount}))}
+        onFinish={(values) => updateTransactionVehicles(item, values.fields)
+            .then(ref.current?.reload)
+            .then(() => true)
+        }
+        trigger={<Button type="link" style={{display: (item.itemReceiptStatus == 'WaitingForAssessment' ? 'inline-block':'none')}}>Cập nhật xe</Button>}
+        >
+        <Row gutter={24}>
+          <Col xs={24}>
+            <DynamicField IR={true}/>
           </Col>
           </Row>
         </ModalForm>
@@ -259,6 +314,7 @@ const IRsPage = ({ history }) => {
             }}
             icon={<PlusOutlined />}
             key={selectedRowKeys[0]}
+            style={{display: (role == 'Staff' || role == 'Admin' ? 'inline-block' : 'none')}}
           >
             Tạo mới
           </Button>

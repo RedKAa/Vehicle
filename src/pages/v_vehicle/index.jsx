@@ -11,12 +11,16 @@ import VehicleForm from '@/components/Form/v_VehicleForm/VehicleForm';
 import VehicleOwnerForm from '@/components/Form/v_VehicleOwnerForm/VehicleOwnerForm';
 import AccountForm from '@/components/Form/AccountForm/AccountForm';
 import WarehouseForm from '@/components/Form/v_WarehouseForm/WarehouseForm';
+import { getCurrentRole } from '@/utils/utils';
+import moment from 'moment';
 
 
 const Page = ({ history }) => {
   const ref = useRef();
   const [selectedRows, setSelectedRows] = useState([]);
   const [visible, setVisible] = React.useState(false);
+  const role = getCurrentRole();
+
 
   const rowSelection = {
     selectedRowKeys: selectedRows,
@@ -39,30 +43,30 @@ const Page = ({ history }) => {
 
   const dcolumns = [
     ...columns,
-    {
-      title: 'Trạng thái',
-      dataIndex: 'status',
-      width: 150,
-      valueType: 'select',
-      valueEnum: {
-        true: { text: 'Đang hiển thị', status: 'Processing' },
-        false: { text: 'không hiển thị', status: 'Error' },
-      },
-      search: false,
-      align: 'center',
-      render: (_, vehicle) => {
-        return (
-          <Switch
-            checked={vehicle.status == 'Active' ? true : false}
-            onChange={(bool) => {
-              let status = bool ? 'Active' : 'Disable';
-              let id = vehicle.id;
-              activationHandler({id, status});
-            }}
-          />
-        );
-      },
-    },
+    // {
+    //   title: 'Trạng thái',
+    //   dataIndex: 'status',
+    //   width: 150,
+    //   valueType: 'select',
+    //   valueEnum: {
+    //     true: { text: 'Đang hiển thị', status: 'Processing' },
+    //     false: { text: 'không hiển thị', status: 'Error' },
+    //   },
+    //   search: false,
+    //   align: 'center',
+    //   render: (_, vehicle) => {
+    //     return (
+    //       <Switch
+    //         checked={vehicle.status == 'Active' ? true : false}
+    //         onChange={(bool) => {
+    //           let status = bool ? 'Active' : 'Disable';
+    //           let id = vehicle.id;
+    //           activationHandler({id, status});
+    //         }}
+    //       />
+    //     );
+    //   },
+    // },
     {
       title: 'Kho bãi',
       sorter: true,
@@ -93,29 +97,29 @@ const Page = ({ history }) => {
         </ModalForm>
       ),
     },
-    {
-      title: 'Nhân viên',
-      sorter: true,
-      dataIndex: 'staff',
-      hideInForm: true,
-      search: false,
-      render: (_, { staff }) => (
-        <ModalForm
-          title="Nhân viên"
-          name="upadte-account"
-          key={`upadte-account_${staff?.userName}`}
-          initialValues={staff}
-          onFinish={(values) =>
-            updateAccount(staff.id, values)
-              .then(ref.current?.reload)
-              .then(() => true)
-          }
-          trigger={<Button type="link">{staff?.userName}</Button>}
-        >
-          <AccountForm updateMode/>
-        </ModalForm>
-      ),
-    },
+    // {
+    //   title: 'Nhân viên',
+    //   sorter: true,
+    //   dataIndex: 'staff',
+    //   hideInForm: true,
+    //   search: false,
+    //   render: (_, { staff }) => (
+    //     <ModalForm
+    //       title="Nhân viên"
+    //       name="upadte-account"
+    //       key={`upadte-account_${staff?.userName}`}
+    //       initialValues={staff}
+    //       onFinish={(values) =>
+    //         updateAccount(staff.id, values)
+    //           .then(ref.current?.reload)
+    //           .then(() => true)
+    //       }
+    //       trigger={<Button type="link">{staff?.userName}</Button>}
+    //     >
+    //       <AccountForm updateMode/>
+    //     </ModalForm>
+    //   ),
+    // },
     {
       title: 'Thẩm định viên',
       sorter: true,
@@ -133,7 +137,7 @@ const Page = ({ history }) => {
               .then(ref.current?.reload)
               .then(() => true)
           }
-          trigger={<Button type="link">{assessor?.userName}</Button>}
+          trigger={<Button type="link">{assessor?.userName}</Button>} 
         >
           <AccountForm updateMode/>
         </ModalForm>
@@ -226,6 +230,7 @@ const Page = ({ history }) => {
     {
       title: 'Hành động',
       search: false,
+      hideInTable: (role !== 'Assessor' && role !== 'Admin'),
       render: (_, vehicle) =>
         (<ModalForm
           title="Cập nhật xe"
@@ -233,16 +238,17 @@ const Page = ({ history }) => {
             destroyOnClose: true,
           }}
           name="upadte-vehicle"
+          width={1200}
           key={`upadte-vehicle${vehicle.id}`}
-          initialValues={vehicle}
+          initialValues={{...vehicle, newAt: moment(vehicle.newAt)}}
           onFinish={(values) =>
-            updateVehicle(vehicle.id, values)
+            updateVehicle(vehicle.id, {...values, request: "", newAt: moment(vehicle.newAt)})
               .then(ref.current?.reload)
               .then(() => true)
           }
-          trigger={<Button type="link">Cập nhật</Button>}
+          trigger={<Button type="link" style={{display: ((vehicle.vehicleStatus == 'Draft' || role == 'Admin') ? 'inline-block': 'none')}}>Cập nhật</Button>}
         >
-          <VehicleForm update/>
+          <VehicleForm readonly={vehicle.vehicleStatus !== "Draft"}/>
         </ModalForm>),
     }
   ]; 
@@ -277,6 +283,7 @@ const Page = ({ history }) => {
             }}
             onValuesChange={console.log}
             onFinishFailed={console.log}
+            width={1200}
             name="create-vehicle"
             key="create-vehicle"
             visible={visible}
@@ -315,7 +322,7 @@ const Page = ({ history }) => {
                 ];
               },
             }}
-            trigger={<Button icon={<PlusOutlined />} type='primary'  onClick={() => setVisible(true)}>Thêm xe</Button>}
+            trigger={<Button icon={<PlusOutlined />} type='primary'  onClick={() => setVisible(true)} style={{display: (role==='Admin' || role ==='Assessor' ? 'inline-block' : 'none')}}>Thêm xe</Button>}
           >
             <VehicleForm />
           </ModalForm>
@@ -324,7 +331,7 @@ const Page = ({ history }) => {
         resource="vehicles"
         actionRef={ref}
         isShowSelection={false}
-        // additionParams={{orderBy: 'createAt-dec'}}
+        additionParams={{orderBy: 'createAt-dec'}}
       />
     </PageContainer>
   );

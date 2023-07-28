@@ -5,7 +5,7 @@ export const searchSaleorderById = (id) => {
   return request.get('/saleorders', {
     params: {
       'id': id,
-      'status': 'Active'
+      'ApprovalStatus': 'Approved',
     },
     useCache: true,
   });
@@ -37,4 +37,8 @@ export const updateSaleorderById = (id, saleorder) => {
       ...saleorder
     },
   });
+}
+
+export const deleteSOById = (id) =>{
+  return request.delete(`/saleorders/${id}`);
 }

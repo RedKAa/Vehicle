@@ -1,6 +1,6 @@
 import {
   SelectAssessor,
-  SelectVehicle,
+  SelectVehicleIR,
   SelectVehicleOwner
 } from '@/components/CommonSelect/CommonSelect';
 import ImageUploader from '@/components/ImageUploader/ImageUploader';
@@ -77,7 +77,7 @@ const ItemreceiptForm = ({readonly = false, update = false, createPage = false,d
           rules={[{ required: true, message: 'Vui lòng chọn xe' }]}
           disabled={update}
         >
-          <SelectVehicle
+          <SelectVehicleIR
             placeholder="Tìm kiếm bằng sđt chủ sở hữu..."
             fetchOnFirst
             style={{

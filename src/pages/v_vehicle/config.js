@@ -40,14 +40,14 @@ export const columns = [
     title: 'Xuất xứ',
     dataIndex: 'manufacture',
   },
-  {
-    title: 'Mua mới',
-    dataIndex: 'newAt',
-    hideInSearch: true,
-    render: ({newAt}) => {
-      return(<Tag color="#78cc7a">{moment(newAt).format('HH:mm DD-MM-YYYY')}</Tag>)
-    }
-  },
+  // {
+  //   title: 'Mua mới',
+  //   dataIndex: 'newAt',
+  //   hideInSearch: true,
+  //   render: ({newAt}) => {
+  //     return(<Tag color="#78cc7a">{moment(newAt).format('DD-MM-YYYY')}</Tag>)
+  //   }
+  // },
   {
     title: 'Định giá',
     dataIndex: 'assessPrice',
@@ -69,15 +69,6 @@ export const columns = [
     dataIndex: 'description',
   },
   {
-    title: 'Ảnh',
-    dataIndex: 'imgs',
-    hideInSearch: true,
-    render: (_, { avatarLink }) =>  avatarLink && (<Image
-      width={100}
-      src={avatarLink}
-    />)
-  },
-  {
     title: 'Dung tích',
     dataIndex: 'capacity',
     hideInSearch: true,
@@ -88,6 +79,19 @@ export const columns = [
     hideInSearch: true,
     dataIndex: 'name',
     hideInTable: true,
+  },
+  {
+    title: 'Trạng thái',
+    dataIndex: 'vehicleStatus',
+    valueType: 'select',
+    valueEnum: {
+      'Draft': { text: 'Nháp'},
+      'WaitIn': { text: 'Đợi nhập kho'},
+      'Inventory': { text: 'Sẵn bán'},
+      'Order': { text: 'Đã chốt đơn'},
+      'WaitOut': { text: 'Đợi xuất kho'},
+      'Sold': { text: 'Đã bán'},
+    },
   },
   {
     title: 'Ngày Tạo',
@@ -105,14 +109,14 @@ export const columns = [
     hideInTable: true,
     sorter: (a, b) => a.updateAt > b.updateAt,
   },
-  {
-    title: 'Người tạo',
-    dataIndex: 'createById',
-    hideInTable: true,
-  },
-  {
-    title: 'Người cập nhật',
-    dataIndex: 'updateById',
-    hideInTable: true,
-  },
+  // {
+  //   title: 'Người tạo',
+  //   dataIndex: 'createById',
+  //   hideInTable: true,
+  // },
+  // {
+  //   title: 'Người cập nhật',
+  //   dataIndex: 'updateById',
+  //   hideInTable: true,
+  // },
 ];

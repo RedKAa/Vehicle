@@ -474,6 +474,28 @@ export const validateEmail = (email) => {
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   );
 };
+export const validateInt = (value) => {
+  return !isNaN(value) && value.match(/^\d+$/) && parseInt(value) > 0;
+};
+
+export const getTmpTransaction = (type) => {
+    return {
+      "id": null,
+      "transactionName": type,
+      "totalAmount": 0,
+      "transactionDate": moment(new Date),
+      "transactionType": type,
+      "transactionStatus": null,
+      "transactionLines": [],
+      "createAt": null,
+      "updateAt": null,
+      "deleteAt": null,
+      "status": "Active",
+      "createById": null,
+      "updateById": null,
+      "deleteById": null
+    }
+}
 export const validatePhoneVN = (phone) => {
   return phone.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/);
 };

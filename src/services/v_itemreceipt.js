@@ -5,7 +5,7 @@ export const searchItemreceiptById = (id) => {
   return request.get('/itemreceipts', {
     params: {
       'id': id,
-      'status': 'Active'
+      'ItemReceiptStatus': 'Approved'
     },
     useCache: true,
   });
@@ -38,3 +38,4 @@ export const updateItemreceiptById = (id, itemreceipt) => {
     },
   });
 }
+

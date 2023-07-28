@@ -1,9 +1,10 @@
 import {
   SelectAssessor,
   SelectCustomer,
-  SelectVehicle,
-  SelectVehicleOwner
+  SelectVehicleOwner,
+  SelectVehicleSO
 } from '@/components/CommonSelect/CommonSelect';
+import DynamicField from '@/components/DynamicField';
 import ImageUploader from '@/components/ImageUploader/ImageUploader';
 import { normFile, normalizeImg } from '@/utils/utils';
 import { ProFormText, ProFormTextArea } from '@ant-design/pro-form';
@@ -67,20 +68,20 @@ const SaleOrderForm = ({readonly = false, update = false, createPage = false,det
               },
             },
           ]}
-          label="Thành tiền"
+          label="Tổng giá trị"
           name="totalAmount"
           />
       </Col>
     </Row>
     <Row gutter={24}>
-      <Col xs={24}>
+      {/* <Col xs={24}>
         <FormItem
           label="Chọn xe"
           name="vehicleIds"
           rules={[{ required: true, message: 'Vui lòng chọn xe' }]}
           disabled={update}
         >
-          <SelectVehicle
+          <SelectVehicleSO
             placeholder="Tìm kiếm bằng sđt chủ sở hữu..."
             fetchOnFirst
             style={{
@@ -89,7 +90,10 @@ const SaleOrderForm = ({readonly = false, update = false, createPage = false,det
             mode="multiple"
           />
         </FormItem>
-      </Col>
+      </Col> */}
+          <Col xs={24}>
+            <DynamicField SO={true}/>
+          </Col>
     </Row>
     <Row gutter={16}>
       <Col xs={24}>

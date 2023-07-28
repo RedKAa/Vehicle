@@ -122,7 +122,7 @@ export const builIROption = (data) =>
    return (
     <Select.Option value={id} key={id}>
       <div style={{display: 'flex', justifyContent:'space-between'}}>
-        <span style={{display: 'inline-block'}}>ID: {id}</span> <span style={{display: 'inline-block', fontWeight: 'bold', color: ActiveColorSchema.Active}}><pre>{`Tạo lúc: ${moment(createAt).format('mm:HH DD-MM-YYYY')}          Trạng thái: ${IRStatus[itemReceiptStatus]}`}</pre></span>
+        <span style={{display: 'inline-block'}}>ID: {id}</span> <span style={{display: 'inline-block', fontWeight: 'bold', color: ActiveColorSchema.Active}}><pre>{`Tạo lúc: ${moment(createAt).format('HH:mm DD-MM-YYYY')}          Trạng thái: ${IRStatus[itemReceiptStatus]}`}</pre></span>
       </div>
     </Select.Option>
   )
@@ -133,7 +133,7 @@ export const builSOOption = (data) =>
    return (
     <Select.Option value={id} key={id}>
       <div style={{display: 'flex', justifyContent:'space-between'}}>
-        <span style={{display: 'inline-block'}}>ID: {id}</span> <span style={{display: 'inline-block', fontWeight: 'bold', color: ActiveColorSchema.Active}}><pre>{`Tạo lúc: ${moment(createAt).format('mm:HH DD-MM-YYYY')}          Trạng thái: ${SOStatus[approvalStatus]}`}</pre></span>
+        <span style={{display: 'inline-block'}}>ID: {id}</span> <span style={{display: 'inline-block', fontWeight: 'bold', color: ActiveColorSchema.Active}}><pre>{`Tạo lúc: ${moment(createAt).format('HH:mm DD-MM-YYYY')}          Trạng thái: ${SOStatus[approvalStatus]}`}</pre></span>
       </div>
     </Select.Option>
   )

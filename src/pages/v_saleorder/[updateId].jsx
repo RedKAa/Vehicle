@@ -1,5 +1,5 @@
 import UserCard, { VehicleCard } from '@/components/Card';
-import { getItemreceiptById, getTransactionLineByTid, updateItemreceiptById } from '@/services/v_itemreceipt';
+import { getSaleorderById, getTransactionLineByTid, updateSaleorderById } from '@/services/v_saleorder';
 import { getCurrentAdminId } from '@/utils/utils';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -9,7 +9,6 @@ import {
   Button, Card,
   Col,
   Form,
-  Image,
   List,
   Row,
   Spin,
@@ -24,7 +23,7 @@ import { useHistory } from 'umi';
 
 const FormItem = Form.Item;
 
-const UpdateItemreceipt = (props) => {
+const UpdateSaleorder = (props) => {
   const [form] = Form.useForm();
   const {
     match: {
@@ -34,28 +33,26 @@ const UpdateItemreceipt = (props) => {
 
   const [updateError, setError] = useState(null);
   const [fullData, setFullData] = useState(null);
+  const [vehicles, setVehicles] = useState(null);
   const adminId = getCurrentAdminId();
-  const irs = {
-    VehicleOwnerOpen: {
+  const sos = {
+    Open: {
       text: 'Khởi tạo',
     },
-    WaitingForAssessment: {
-      text: 'Đợi thẩm định',
-    },
-    Submit: {
-      text: 'Đợi kiểm duyệt',
-    },
-    Reject: {
-      text: 'Không được duyệt',
+    PendingApproval: {
+      text: 'Đợi duyệt',
     },
     Approved: {
       text: 'Đã duyệt',
+    },
+    Reject: {
+      text: 'Không được duyệt',
     },
   }
 
   const history = useHistory();
 
-  const { data: idata, error: ierror, loading: iloading} = useRequest(() => getItemreceiptById(updateId), {
+  const { data: idata, error: ierror, loading: iloading} = useRequest(() => getSaleorderById(updateId), {
     formatResult: (res) => {
       return res;
     },
@@ -64,10 +61,13 @@ const UpdateItemreceipt = (props) => {
   useEffect(() => {
     if (idata !== undefined) {
       let normalizedData = {
-        ...idata
+        ...idata,
       }
       console.log('datafull',normalizedData)
       normalizedData.status = normalizedData.status == 'Active' ? true: false;
+      normalizedData.approvalStatus = sos[`${normalizedData.approvalStatus}`].text;
+
+
       setFullData({ ...normalizedData });
     }
   },[idata])
@@ -78,28 +78,34 @@ const UpdateItemreceipt = (props) => {
       <Spin spinning={!fullData} style={{ width: '100%' }}>
       <Card bordered={false}>
         <Row justify="space-between">
-          <Typography.Title level={3}>Chi tiết Phiếu nhập</Typography.Title>
+          <Typography.Title level={3}>Chi tiết Phiếu bán hàng</Typography.Title>
           <Affix offsetTop={5}>
             <>
              <Button
               type="link"
               onClick={() => {
-                history.push('/itemreceipts/');
+                history.push('/saleorders/');
               }}
               >
                 Quay lại
               </Button>
-              {(adminId && fullData?.itemReceiptStatus =='Submit') && <><Button
+              {(adminId && fullData?.approvalStatus =='PendingApproval') &&<><Button
               type="secondary"
-              onClick={() =>updateItemreceiptById(fullData.id, {...fullData, itemReceiptStatus: 'Reject', status:fullData.status ? 'Active': 'Disable'})
-              .then(() => history.push('/itemreceipts/'))}
+              onClick={() => {
+                updateSaleorderById(fullData.id, {...fullData, approvalStatus: 'Reject',status:fullData.status ? 'Active': 'Disable'}).then(() => {
+                  history.push('/saleorders/');
+                })
+              }}
               >
                 Từ chối
               </Button>
               <Button
               type="primary"
-              onClick={() =>updateItemreceiptById(fullData.id, {...fullData, itemReceiptStatus: 'Approved',status:fullData.status ? 'Active': 'Disable'})
-              .then(() => history.push('/itemreceipts/'))}
+              onClick={() => {
+                updateSaleorderById(fullData.id, {...fullData, approvalStatus: 'Approved',status:fullData.status ? 'Active': 'Disable'}).then(() => {
+                  history.push('/saleorders/');
+                })
+              }}
               >
                 Duyệt
               </Button>
@@ -110,8 +116,8 @@ const UpdateItemreceipt = (props) => {
         </Row>
         {fullData && <>
         <Row gutter={24} style={{marginBottom: '20px'}}>
-            <Col xs={6}>Trạng thái phiếu nhập &nbsp;
-              <Tag color="green">{irs[`${fullData.itemReceiptStatus}`].text}</Tag>
+            <Col xs={6}>Trạng thái phiếu bán hàng &nbsp;
+              <Tag color="green">{fullData.approvalStatus}</Tag>
             </Col>
             <Col xs={6}>
               Kích hoạt: &nbsp;
@@ -133,16 +139,12 @@ const UpdateItemreceipt = (props) => {
       <hr/>
         <Row gutter={24}>
         <Col xs={6}>
-         Nhân Viên
-         <UserCard user={fullData.staff?.user}/>
+         Nhân Viên bán hàng
+         <UserCard user={fullData.seller?.user}/>
         </Col>
         <Col xs={6}>
-          Chủ sở hữu
-          <UserCard user={fullData.vehicleOwner} showPhone/>
-        </Col>
-        <Col xs={6}>
-         Thẩm định viên
-         <UserCard user={fullData.assessor?.user}/>
+          Khách hàng
+          <UserCard user={fullData.customer} showPhone/>
         </Col>
         <Col xs={6}>
          Kiểm duyệt
@@ -151,18 +153,9 @@ const UpdateItemreceipt = (props) => {
         </Row>
       <hr/>
         <Row gutter={24}>
-        <Col xs={4}>
-          <Image width={150} src={fullData.img}/>
-        </Col>
-        <Col xs={20}>
-          <p>Yêu cầu: {fullData.request}</p>
-        </Col>
-        </Row>
-        <hr/>
-        <Row gutter={24}>
         <Col xs={24}>
           <List
-            dataSource={fullData.transaction?.transactionLines.map(t => t.vehicle ? {...t.vehicle, IRamount: t.amount} : {})}
+            dataSource={fullData.transaction?.transactionLines.map(t => t.vehicle ? {...t.vehicle, SOamount: t.amount} : {})}
             renderItem={(vehicle) => (
               <List.Item key={vehicle.id}>
                 <VehicleCard vehicle={vehicle}/>
@@ -178,4 +171,4 @@ const UpdateItemreceipt = (props) => {
   );
 };
 
-export default UpdateItemreceipt;
+export default UpdateSaleorder;

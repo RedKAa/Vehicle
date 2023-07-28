@@ -10,11 +10,20 @@ export const getVehicleByID = (id) => {
     useCache: true,
   });
 };
-export const getVehicleByOwnerPhone = (phone) => {
+export const getVehicleByOwnerPhoneIR = (phone) => {
   return request.get('/vehicles', {
     params: {
       'ownerphone': phone,
-      'status': 'Active'
+      'vehicleStatus': 'Draft'
+    },
+    useCache: true,
+  });
+};
+export const getVehicleByOwnerPhoneSO = (phone) => {
+  return request.get('/vehicles', {
+    params: {
+      'ownerphone': phone,
+      'vehicleStatus': 'Inventory'
     },
     useCache: true,
   });
@@ -22,8 +31,7 @@ export const getVehicleByOwnerPhone = (phone) => {
 export const updateVehicle =(id, data) => request.put(`/vehicles/${id}`, { data });
 export const createVehicle =(data) => request.post('/vehicles', {
    data: {
-      ...data,
-      assessorId: getCurrentAssessorId()
+      ...data
     },
  });
 export const deleteVehicle =(id) => request.delete(`/vehicles/${id}`);

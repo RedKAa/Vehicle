@@ -63,6 +63,7 @@ const ImageUploader = ({ multiple = false, onChange: onChangeForm, disable = fal
   };
 
   const fileResList = () => {
+    console.log('FL',fileList);
     if (fileList == null) {
       return null;
     }
@@ -82,16 +83,16 @@ const ImageUploader = ({ multiple = false, onChange: onChangeForm, disable = fal
       );
     }
     if (fileList && typeof fileList !== 'string' && multiple) {
+      let fl = normalizeImgs(fileList);
       var imgs = [];
-      for (let i = 0; i < fileList.length; i++) {
-        let { name, response: imgUrl } = fileList[i];
-        let src = imgUrl !== undefined ? imgUrl : fileList[i].toString();
+      for (let i = 0; i < fl.length; i++) {
+        let src = fl[i];
         imgs.push(<Image
           className={styles.imageContainer}
           style={{ width: '102px', height: '102px' }}
           width={102}
           height={102}
-          alt={name}
+          alt={`Anh ${i}`}
           src={src}
           fallback={failureImg}
         />)

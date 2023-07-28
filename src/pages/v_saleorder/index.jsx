@@ -22,7 +22,7 @@ import { ModalForm } from '@ant-design/pro-form';
 import AccountForm from '@/components/Form/AccountForm/AccountForm';
 import { SelectAssessor } from '@/components/CommonSelect/CommonSelect';
 import FormItem from 'antd/es/form/FormItem';
-import { updateSaleorderById } from '@/services/v_saleorder';
+import { deleteSOById, updateSaleorderById } from '@/services/v_saleorder';
 
 
 
@@ -41,10 +41,6 @@ const SOsPage = ({ history }) => {
 
 
   let additionalParam = { orderBy: 'createAt-dec'};
-
-  if(staffId) {additionalParam.staffId = staffId};
-  if(assessorId) {additionalParam.assessorId = assessorId};
-  if(sellerId) {additionalParam.sellerId = sellerId};
 
   const rowSelection = {
     onChange: setSelectedRowKeys,
@@ -124,12 +120,33 @@ const SOsPage = ({ history }) => {
         </ModalForm>) : <></>
     },
     {
-      title: 'Gửi Duyệt',
+      title: 'Hủy Phiếu',
       hideInForm: true,
       hideInTable: (role !== 'Seller' && role !== 'Admin'),
       search: false,
       render: (_,  item ) => {
-        if(item.approvalStatus == 'Open') {
+        if(item.approvalStatus == 'Open' && item.status == 'Active') {
+          return (<>
+          <Button type="danger" onClick={() =>deleteSOById(item.id)
+          .then(ref.current?.reload)
+          .then(() => true)}>Hủy</Button>
+          </>)
+        }
+        if(item.approvalStatus == 'Open' && item.status != 'Active') {
+          return (<>
+          <Tag color='red'>Đã hủy</Tag>
+          </>)
+        }
+        return <></>
+      }
+    },
+    {
+      title: 'Gửi Duyệt',
+      hideInForm: true,
+      hideInTable: (role !== 'Seller'),
+      search: false,
+      render: (_,  item ) => {
+        if(item.approvalStatus == 'Open' && item.status == 'Active') {
           return (<>
           <Button type="primary" onClick={() =>updateSaleorderById(item.id, {...item, approvalStatus: 'PendingApproval'})
           .then(ref.current?.reload)

@@ -111,7 +111,7 @@ export default defineConfig({
               name: 'Phiếu nhập xe',
               icon: 'shopping',
               path: '/itemreceipts/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN, ROLE_DATA.STAFF, ROLE_DATA.ASSESSOR],
+              authority: [ROLE_DATA.SYSTEM_ADMIN,ROLE_DATA.STAFF, ROLE_DATA.ASSESSOR],
               routes: [
                 {
                   path: '/itemreceipts/',
@@ -141,7 +141,7 @@ export default defineConfig({
               name: 'Phiếu bán hàng',
               icon: 'shopping',
               path: '/saleorders/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN, ROLE_DATA.STAFF, ROLE_DATA.SELLER],
+              authority: [ROLE_DATA.SYSTEM_ADMIN, ROLE_DATA.SELLER],
               routes: [
                 {
                   path: '/saleorders/',
@@ -159,12 +159,12 @@ export default defineConfig({
                   path: '/saleorders/create',
                   component: './v_saleorder/create',
                 },
-                // {
-                //   name: 'update',
-                //   hideInMenu: true,
-                //   path: '/saleorders/:updateId',
-                //   component: './v_saleorder/[updateId]',
-                // },
+                {
+                  name: 'update',
+                  hideInMenu: true,
+                  path: '/saleorders/:updateId',
+                  component: './v_saleorder/[updateId]',
+                },
               ],
             }, //end
             {
@@ -263,7 +263,7 @@ export default defineConfig({
                   redirect: '/profile/index',
                 },
                 {
-                  name: 'tài khoản người dùng',
+                  name: 'Tài khoản người dùng',
                   hideInMenu: true,
                   path: '/profile/index',
                   component: './profile/index',

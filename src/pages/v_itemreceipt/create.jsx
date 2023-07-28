@@ -1,7 +1,7 @@
 import AsyncButton from '@/components/AsyncButton';
 import ItemreceiptForm from '@/components/Form/v_ItemreceiptForm/ItemreceiptForm';
 import { createItemreceipt } from '@/services/v_itemreceipt';
-import { getCurrentAdminId, getCurrentStaffId } from '@/utils/utils';
+import { getCurrentAdminId, getCurrentStaffId, getTmpTransaction } from '@/utils/utils';
 import { PageContainer } from '@ant-design/pro-layout';
 import {
   Affix,
@@ -29,7 +29,8 @@ const CreateItemreceipt = (props) => {
     .then((itemreceipt) => {
       const normalizedData = {
         ...itemreceipt,
-        status: itemreceipt.status ? 'Active' : 'Disable'
+        status: itemreceipt.status ? 'Active' : 'Disable',
+        transaction: getTmpTransaction("IR")
       };
       console.log(normalizedData)
       return createItemreceipt(normalizedData)

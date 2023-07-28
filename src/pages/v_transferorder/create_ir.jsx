@@ -39,10 +39,13 @@ const CreateTransferOrderIR = (props) => {
       // }
 
       const normalizedData = { ...transferorder,
+        ToLocationAddress: null,
+        fromLocationId: null,
+        transferOrderType: "In",
         status: transferorder.status ? 'Active' : 'Disable',
         transaction: {
-          transactionName: "Phiếu xuất kho",
-          transactionType: "SO",
+          transactionName: "Phiếu nhập kho",
+          transactionType: "IR",
           totalAmount: 0,
           transactionLines: [
             ...tls
