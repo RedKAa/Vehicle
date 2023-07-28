@@ -37,7 +37,7 @@ const VehicleCard = ({vehicle}) => {
       return <></>
    }
 
-  const {assessPrice,IRamount, SOamount, carModel, color, description, fuelType, gearType, imgs, manufacture, manufactureYear, newAt, soldPrice, usage, videos, vehicleImgs } = vehicle;
+  const {id, assessPrice,IRamount, SOamount, carModel, color, description, fuelType, gearType, imgs, manufacture, manufactureYear, newAt, soldPrice, usage, videos, vehicleImgs } = vehicle;
 
   let tmpimgs = [];
   console.log('imgs', vehicleImgs)
@@ -47,14 +47,15 @@ const VehicleCard = ({vehicle}) => {
   return (
    <Row gutter={24} style={{border: '1px solid gray', width:'100%', padding:'20px'}}>
       <Col xs={2.5}>
+         <p>ID&nbsp;</p>
          <p>Màu sắc&nbsp;</p>
          <p>Nhiên liệu &nbsp;</p>
          <p>Số &nbsp;</p>
-         <p>Sản xuất tại &nbsp;
-         </p>
+         <p>Sản xuất tại &nbsp;</p>
          <p>Đã đi &nbsp; </p>
       </Col>
       <Col xs={3}>
+      <p><Tag color="green">{id}</Tag></p>
          <p><Tag color="green">{color}</Tag></p>
          <p><Tag color="green">{fuelType}</Tag></p>
          <p><Tag color="green">{gearType}</Tag></p>

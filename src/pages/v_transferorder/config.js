@@ -25,24 +25,16 @@ export const columns = [
   {
     title: 'ID phiếu nhập xe',
     hideInForm: true,
+    dataIndex: 'itemReceipt',
     copyable: true,
-    render: (_,  item ) => {
-      if(item.itemReceiptId) {
-        <>{item.itemReceiptId}</>
-      }
-      return <></>
-    }
+    render: (_,  item ) => <span>{item.itemReceipt?.id}</span>
   },
   {
     title: 'ID phiếu bán hàng',
     hideInForm: true,
     copyable: true,
-    render: (_,  item ) => {
-      if(item.SaleOrderId) {
-        <>{item.SaleOrderId}</>
-      }
-      return <></>
-    }
+    dataIndex: 'saleOrder',
+    render: (_,  item ) => <span>{item.saleOrder?.id}</span>
   },
   {
     title: 'Ngày xuất kho',
