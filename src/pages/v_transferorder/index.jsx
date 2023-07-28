@@ -32,19 +32,12 @@ const TOsPage = ({ history }) => {
   // const [selectedRows, setSelectedRows] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [visible, setVisible] = React.useState(false);
-  const staffId = getCurrentStaffId();
-  const assessorId = getCurrentAssessorId();
-  const sellerId = getCurrentSellerId();
-  const jwtToken = getAppToken();
   const role = getCurrentRole();
 
 
 
   let additionalParam = { orderBy: 'createAt-dec'};
 
-  if(staffId) {additionalParam.staffId = staffId};
-  if(assessorId) {additionalParam.assessorId = assessorId};
-  if(sellerId) {additionalParam.sellerId = sellerId};
 
   const rowSelection = {
     onChange: setSelectedRowKeys,
