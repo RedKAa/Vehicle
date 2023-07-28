@@ -120,28 +120,28 @@ const AccountListPage = () => {
             src={avatarLink}
           />)
           },
-          {
-            title: 'Tạo:',
-            sorter: true,
-            dataIndex: 'createdInRange',
-            hideInTable: true,
-            hideInForm: true,
-            valueType: 'dateTimeRange',
-            search: {
-              transform: (value) => ({ createAt_startTime: value[0], createAt_endTime: value[1] }),
-            },
-          },
-          {
-            title: 'Cập nhật:',
-            sorter: true,
-            dataIndex: 'updatedInRange',
-            hideInTable: true,
-            hideInForm: true,
-            valueType: 'dateTimeRange',
-            search: {
-              transform: (value) => ({ updateAt_startTime: value[0], updateAt_endTime: value[1] }),
-            },
-          },
+          // {
+          //   title: 'Tạo:',
+          //   sorter: true,
+          //   dataIndex: 'createdInRange',
+          //   hideInTable: true,
+          //   hideInForm: true,
+          //   valueType: 'dateTimeRange',
+          //   search: {
+          //     transform: (value) => ({ createAt_startTime: value[0], createAt_endTime: value[1] }),
+          //   },
+          // },
+          // {
+          //   title: 'Cập nhật:',
+          //   sorter: true,
+          //   dataIndex: 'updatedInRange',
+          //   hideInTable: true,
+          //   hideInForm: true,
+          //   valueType: 'dateTimeRange',
+          //   search: {
+          //     transform: (value) => ({ updateAt_startTime: value[0], updateAt_endTime: value[1] }),
+          //   },
+          // },
           {
             title: 'Tên',
             dataIndex: 'userName',
@@ -151,7 +151,7 @@ const AccountListPage = () => {
             title: 'Email',
             dataIndex: 'email',
             copyable: true,
-            hideInSearch: true,
+            hideInSearch: false,
           },
           {
             title: 'SĐT',

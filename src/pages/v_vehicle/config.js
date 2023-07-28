@@ -67,6 +67,9 @@ export const columns = [
     title: 'Ghi chú',
     hideInSearch: true,
     dataIndex: 'description',
+    render: (_,  item ) => {
+      return <TextArea style={{height: 200}} readOnly value={item.description}></TextArea>
+    }
   },
   {
     title: 'Dung tích',

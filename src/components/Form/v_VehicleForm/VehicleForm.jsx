@@ -165,6 +165,7 @@ const VehicleForm = ({readonly = false, update = false,}) => {
           normalize={normalizeImg}
           name="imgs"
           label="Ảnh chính"
+          rules={[{ required: true, message: 'Vui lòng chọn ảnh chính' }]}
         >
          <ImageUploader style={{ height: '100%' }}/>
         </ProForm.Item>
@@ -172,6 +173,7 @@ const VehicleForm = ({readonly = false, update = false,}) => {
           width="md"
           valuePropName="fileList"
           getValueFromEvent={normFile}
+          rules={[{ required: true, message: 'Vui lòng chọn ảnh mô tả' }]}
           normalize={normalizeImgs}
           name="vehicleImgs"
           label="Ảnh mô tả"

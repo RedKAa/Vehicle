@@ -87,7 +87,7 @@ const TOsPage = ({ history }) => {
     {
       title: 'Gửi Duyệt',
       hideInForm: true,
-      hideInTable: (role !== 'Staff' && role !== 'Admin'),
+      hideInTable: (role !== 'Staff'),
       search: false,
       render: (_,  item ) => {
         if(item.approvalStatus == 'Open') {
@@ -119,14 +119,6 @@ const TOsPage = ({ history }) => {
         return <></>
       }
     },
-    {
-      title: 'Chi tiết',
-      search: false,
-      render: (_, item) =>
-        (
-        <EyeOutlined key={`edit ${item.id}`} onClick={() => history.push(`/transferorders/${item.id}`)} style={{marginLeft: 20}}/>
-       ),
-    }
   ];
 
   return (

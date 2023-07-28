@@ -55,12 +55,12 @@ const CreateTransferOrderIR = (props) => {
       return createTransferorder(normalizedData)
     })
     .then(() => {
-      // history.replace('/transferorders/')
+      history.replace('/transferorders/')
     })
     .catch((err) => {
       setError(err);
       console.log(createError);
-      // history.replace('/transferorders/')
+      history.replace('/transferorders/')
     })
   };
 
