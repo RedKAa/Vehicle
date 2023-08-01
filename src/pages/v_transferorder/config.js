@@ -22,19 +22,31 @@ export const columns = [
       },
       },
   },
+  // {
+  //   title: 'ID phiếu nhập xe',
+  //   hideInForm: true,
+  //   dataIndex: 'itemReceipt',
+  //   hideInSearch:true,
+  //   copyable: true,
+  //   render: (_,  item ) => <span>{item.itemReceipt?.id}</span>
+  // },
   {
     title: 'ID phiếu nhập xe',
-    hideInForm: true,
-    dataIndex: 'itemReceipt',
-    copyable: true,
-    render: (_,  item ) => <span>{item.itemReceipt?.id}</span>
+    hideInTable: true,
+    dataIndex: 'itemReceiptId',
   },
+  // {
+  //   title: 'ID phiếu bán hàng',
+  //   hideInForm: true,
+  //   hideInSearch:true,
+  //   copyable: true,
+  //   dataIndex: 'saleOrder',
+  //   render: (_,  item ) => <span>{item.saleOrder?.id}</span>
+  // },
   {
     title: 'ID phiếu bán hàng',
-    hideInForm: true,
-    copyable: true,
-    dataIndex: 'saleOrder',
-    render: (_,  item ) => <span>{item.saleOrder?.id}</span>
+    hideInTable: true,
+    dataIndex: 'saleOrderId',
   },
   {
     title: 'Ngày xuất kho',

@@ -1,5 +1,6 @@
 import React from 'react';
 import {  Tag,  Input, Button, Image  } from 'antd';
+import moment from 'moment';
 const { TextArea } = Input;
 
 
@@ -37,5 +38,8 @@ export const columns = [
     valueType: 'date',
     hideInSearch: true,
     sorter: (a, b) => a.updateAt > b.updateAt,
+    render: ({updateAt}) => {
+      return(<Tag color="#78cc7a">{moment(updateAt).format('DD-MM-YYYY')}</Tag>)
+    }
   },
 ];

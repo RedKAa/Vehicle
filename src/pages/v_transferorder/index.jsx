@@ -112,6 +112,22 @@ const TOsPage = ({ history }) => {
         return <></>
       }
     },
+    {
+      title: 'Chi tiết phiếu liên quan',
+      search: false,
+      render: (_, item) => {
+        if (item.transferOrderType == 'In') {
+          return  <EyeOutlined key={`edit ${item.id}`} onClick={() =>
+            window.open(`/itemreceipts/${item.itemReceipt?.id}`)}
+          style={{marginLeft: 20}}/>
+        }
+        if (item.transferOrderType == 'Out') {
+          return  <EyeOutlined key={`edit ${item.id}`} onClick={() =>
+            window.open(`/saleorders/${item.saleOrder?.id}`)}
+          style={{marginLeft: 20}}/>
+        }
+      }
+    }
   ];
 
   return (

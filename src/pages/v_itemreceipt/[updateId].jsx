@@ -78,7 +78,7 @@ const UpdateItemreceipt = (props) => {
       <Spin spinning={!fullData} style={{ width: '100%' }}>
       <Card bordered={false}>
         <Row justify="space-between">
-          <Typography.Title level={3}>Chi tiết Phiếu nhập</Typography.Title>
+          <Typography.Title level={3}>Chi tiết phiếu nhập xe #{fullData?.id}</Typography.Title>
           <Affix offsetTop={5}>
             <>
              <Button

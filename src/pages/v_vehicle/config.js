@@ -1,6 +1,7 @@
 import React from 'react';
 import {  Tag,  Input, Button, Image  } from 'antd';
 import moment from 'moment';
+import { formatCurrency } from '@/utils/utils';
 const { TextArea } = Input;
 
 
@@ -40,23 +41,25 @@ export const columns = [
     title: 'Xuất xứ',
     dataIndex: 'manufacture',
   },
-  // {
-  //   title: 'Mua mới',
-  //   dataIndex: 'newAt',
-  //   hideInSearch: true,
-  //   render: ({newAt}) => {
-  //     return(<Tag color="#78cc7a">{moment(newAt).format('DD-MM-YYYY')}</Tag>)
-  //   }
-  // },
+  {
+    title: 'Mua mới',
+    dataIndex: 'newAt',
+    hideInSearch: true,
+    render: ({newAt}) => {
+      return(<Tag color="#78cc7a">{moment(newAt).format('DD-MM-YYYY')}</Tag>)
+    }
+  },
   {
     title: 'Định giá',
     dataIndex: 'assessPrice',
     hideInSearch: true,
+    render: (_, { assessPrice }) => <Tag>{formatCurrency(assessPrice)}</Tag>
   },
   {
     title: 'Giá bán',
     dataIndex: 'soldPrice',
     hideInSearch: true,
+    render: (_, { soldPrice }) => <Tag>{formatCurrency(soldPrice)}</Tag>
   },
   {
     title: 'Đã đi(km)',

@@ -1,4 +1,5 @@
-import { Image, Input } from 'antd';
+import { Image, Input, Tag } from 'antd';
+import moment from 'moment';
 const { TextArea } = Input;
 
 
@@ -28,6 +29,9 @@ export const columns = [
     valueType: 'date',
     hideInSearch: true,
     sorter: (a, b) => a.createAt > b.createAt,
+    render: ({createAt}) => {
+      return(<Tag color="#78cc7a">{moment(createAt).format('DD-MM-YYYY')}</Tag>)
+    }
   },
   {
     title: 'Tạo:',
@@ -39,17 +43,5 @@ export const columns = [
     search: {
       transform: (value) => ({ createAt_startTime: value[0], createAt_endTime: value[1] }),
     },
-  },
-  {
-    title: 'Xe đang bán',
-    dataIndex: 'vehiclenum',
-    hideInSearch: true,
-    sorter: (a, b) => a.vehiclenum > b.vehiclenum,
-  },
-  {
-    title: 'Xe đã bán',
-    dataIndex: 'soldvehicle',
-    hideInSearch: true,
-    sorter: (a, b) => a.salenum > b.salenum,
   },
 ];
