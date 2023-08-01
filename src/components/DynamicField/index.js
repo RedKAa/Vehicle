@@ -55,7 +55,7 @@ function DynamicField({IR = false, SO = false}) {
                            : Promise.reject()
                      },
                      ]}
-                     label="Định giá"
+                     label={IR ? "Định giá":"Giá bán"}
                      name={[index, "amount"]}
                      width="md"
                   />
