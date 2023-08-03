@@ -250,7 +250,7 @@ export default defineConfig({
               name: 'Khách hàng',
               icon: 'user',
               component: './v_customer/',
-              authority: [ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
+              authority: [ROLE_DATA.SELLER, ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
             },
             {
               name: 'Tài khoản',

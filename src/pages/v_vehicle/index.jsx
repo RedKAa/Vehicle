@@ -228,6 +228,28 @@ const Page = ({ history }) => {
       ),
     },
     {
+      title: 'IR',
+      search: false,
+      render: (_, item) => {
+        if (item.irId) {
+          return  <EyeOutlined key={`edit ${item.id}`} onClick={() =>
+            window.open(`/itemreceipts/${item.irId}`)}
+          style={{marginLeft: 20}}/>
+        }
+      }
+    },
+    {
+      title: 'SO',
+      search: false,
+      render: (_, item) => {
+        if (item.soId) {
+          return  <EyeOutlined key={`edit ${item.id}`} onClick={() =>
+            window.open(`/saleorders/${item.soId}`)}
+          style={{marginLeft: 20}}/>
+        }
+      }
+    },
+    {
       title: 'Hành động',
       search: false,
       hideInTable: (role !== 'Assessor' && role !== 'Admin'),

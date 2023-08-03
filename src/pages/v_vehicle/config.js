@@ -12,6 +12,11 @@ export const columns = [
     hideInForm: true,
   },
   {
+    title: 'Biển số xe',
+    dataIndex: 'license',
+    hideInForm: true,
+  },
+  {
     title: 'Ảnh',
     dataIndex: 'imgs',
     hideInSearch: true,
@@ -53,27 +58,27 @@ export const columns = [
     title: 'Định giá',
     dataIndex: 'assessPrice',
     hideInSearch: true,
-    render: (_, { assessPrice }) => <Tag>{formatCurrency(assessPrice)}</Tag>
+    render: (_, { assessPrice }) => <Tag>{assessPrice ? formatCurrency(assessPrice) : ''}</Tag>
   },
   {
     title: 'Giá bán',
     dataIndex: 'soldPrice',
     hideInSearch: true,
-    render: (_, { soldPrice }) => <Tag>{formatCurrency(soldPrice)}</Tag>
+    render: (_, { soldPrice }) => <Tag>{soldPrice ? formatCurrency(soldPrice) : ''}</Tag>
   },
   {
     title: 'Đã đi(km)',
     hideInSearch: true,
     dataIndex: 'usage',
   },
-  {
-    title: 'Ghi chú',
-    hideInSearch: true,
-    dataIndex: 'description',
-    render: (_,  item ) => {
-      return <TextArea style={{height: 200}} readOnly value={item.description}></TextArea>
-    }
-  },
+  // {
+  //   title: 'Ghi chú',
+  //   hideInSearch: true,
+  //   dataIndex: 'description',
+  //   render: (_,  item ) => {
+  //     return <TextArea style={{height: 200}} readOnly value={item.description}></TextArea>
+  //   }
+  // },
   {
     title: 'Dung tích',
     dataIndex: 'capacity',

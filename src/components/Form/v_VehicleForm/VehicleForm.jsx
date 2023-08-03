@@ -51,6 +51,18 @@ const VehicleForm = ({readonly = false, update = false,}) => {
         />
       </ProForm.Group>
       <ProForm.Group>
+      <ProFormText
+            rules={[
+              {
+                required: true,
+                message: 'không để trống biển số',
+              },
+            ]}
+            label="Biển số"
+            name="license"
+            width="xs"
+            disable={readonly}
+        />
         <ProFormText
             rules={[
               {
@@ -60,7 +72,22 @@ const VehicleForm = ({readonly = false, update = false,}) => {
             ]}
             label="Màu sắc"
             name="color"
-            width="md"
+            width="xs"
+            disable={readonly}
+        />
+        <ProFormText
+           rules={[
+            {
+              required: true,
+              message: 'Không để trống ducng tích xe',
+              validator: (_, value) => validateInt(value)
+                  ? Promise.resolve()
+                  : Promise.reject()
+            },
+            ]}
+            label="Dung tích xe"
+            name="capacity"
+            width="xs"
             disable={readonly}
         />
         <ProFormSelect
@@ -142,7 +169,6 @@ const VehicleForm = ({readonly = false, update = false,}) => {
             name="description"
             width="md"
             disable={readonly}
-
         />
         <ProForm.Item
          label="Chủ sở hữu"

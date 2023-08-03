@@ -32,10 +32,4 @@ export const sellersColumn = [
     title: 'Địa chỉ',
     dataIndex: 'address',
   },
-  {
-    title: 'Xe đã bán',
-    dataIndex: 'vehiclesSold',
-    hideInSearch: true,
-    sorter: (a, b) => a.vehiclesSold > b.vehiclesSold,
-  },
 ];
