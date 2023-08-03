@@ -130,7 +130,7 @@ export default defineConfig({
                   component: './v_itemreceipt/create',
                 },
                 {
-                  name: 'Cập nhật phiếu nhập xe',
+                  name: 'Phiếu nhập xe',
                   hideInMenu: true,
                   path: '/itemreceipts/:updateId',
                   component: './v_itemreceipt/[updateId]',
@@ -160,7 +160,7 @@ export default defineConfig({
                   component: './v_saleorder/create',
                 },
                 {
-                  name: 'update',
+                  name: 'Phiếu bán hàng',
                   hideInMenu: true,
                   path: '/saleorders/:updateId',
                   component: './v_saleorder/[updateId]',

@@ -143,29 +143,29 @@ const Page = ({ history }) => {
         </ModalForm>
       ),
     },
-    {
-      title: 'Kiểm duyệt',
-      sorter: true,
-      dataIndex: 'approver',
-      hideInForm: true,
-      search: false,
-      render: (_, { approver }) => (
-        <ModalForm
-          title="Nhân viên"
-          name="upadte-account"
-          key={`upadte-account_${approver?.userName}`}
-          initialValues={approver}
-          onFinish={(values) =>
-            updateAccount(approver.id, values)
-              .then(ref.current?.reload)
-              .then(() => true)
-          }
-          trigger={<Button type="link">{approver?.userName}</Button>}
-        >
-          <AccountForm updateMode/>
-        </ModalForm>
-      ),
-    },
+    // {
+    //   title: 'Kiểm duyệt',
+    //   sorter: true,
+    //   dataIndex: 'approver',
+    //   hideInForm: true,
+    //   search: false,
+    //   render: (_, { approver }) => (
+    //     <ModalForm
+    //       title="Nhân viên"
+    //       name="upadte-account"
+    //       key={`upadte-account_${approver?.userName}`}
+    //       initialValues={approver}
+    //       onFinish={(values) =>
+    //         updateAccount(approver.id, values)
+    //           .then(ref.current?.reload)
+    //           .then(() => true)
+    //       }
+    //       trigger={<Button type="link">{approver?.userName}</Button>}
+    //     >
+    //       <AccountForm updateMode/>
+    //     </ModalForm>
+    //   ),
+    // },
     {
       title: 'Chủ xe',
       sorter: true,

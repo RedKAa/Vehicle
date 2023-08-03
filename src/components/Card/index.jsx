@@ -37,7 +37,7 @@ const VehicleCard = ({vehicle}) => {
       return <></>
    }
 
-  const {id, assessPrice,IRamount, SOamount, carModel, color, description, fuelType, gearType, imgs, manufacture, manufactureYear, newAt, soldPrice, usage, videos, vehicleImgs } = vehicle;
+  const {id,license, assessPrice,IRamount, SOamount, carModel, color, description, fuelType, gearType, imgs, manufacture, manufactureYear, newAt, soldPrice, usage, videos, vehicleImgs } = vehicle;
 
   let tmpimgs = [];
   console.log('imgs', vehicleImgs)
@@ -66,6 +66,8 @@ const VehicleCard = ({vehicle}) => {
          <p><Tag color="green">{usage} (Km)</Tag></p>
       </Col>
       <Col xs={2.5}>
+         <p>Biển số &nbsp;
+         </p>
          <p>Mua mới &nbsp;
          </p>
          <p>Sản xuất năm &nbsp;
@@ -76,6 +78,10 @@ const VehicleCard = ({vehicle}) => {
          {SOamount && <p>Nhân viên báo giá &nbsp;</p>}
       </Col>
       <Col xs={3}>
+         <p>
+            <Tag color="green">
+            {license ? license : ''}</Tag>
+         </p>
          <p>
             <Tag icon={<ClockCircleOutlined />} color="green">
             {newAt ? moment(newAt).format('HH:mm DD-MM-YYYY') : ''}</Tag>
