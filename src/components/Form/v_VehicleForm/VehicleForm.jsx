@@ -75,7 +75,7 @@ const VehicleForm = ({readonly = false, update = false,}) => {
             width="xs"
             disable={readonly}
         />
-        <ProFormText
+        {/* <ProFormText
            rules={[
             {
               required: true,
@@ -89,7 +89,7 @@ const VehicleForm = ({readonly = false, update = false,}) => {
             name="capacity"
             width="xs"
             disable={readonly}
-        />
+        /> */}
         <ProFormSelect
           label="Hộp số"
           rules={[{ required: true, message: 'Vui lòng chọn hộp số' }]}

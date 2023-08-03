@@ -68,7 +68,7 @@ const WarehouseForm = ({readonly = false, update = false,}) => {
           readonly={readonly}
         />
       </ProForm.Group>
-      <ProForm.Group>
+      {/* <ProForm.Group>
         <ProFormText
             rules={[
               {
@@ -102,7 +102,7 @@ const WarehouseForm = ({readonly = false, update = false,}) => {
             width="md"
         />
       }
-      </ProForm.Group>
+      </ProForm.Group> */}
      
     </>
   );

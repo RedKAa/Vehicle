@@ -20,27 +20,31 @@ export const columns = [
     dataIndex: 'address',
   },
   {
-    title: 'Xe đang bán',
-    dataIndex: 'vehiclesOrdered',
-    hideInSearch: true,
-    sorter: (a, b) => a.vehiclesOrdered > b.vehiclesOrdered,
+    title: 'SĐT',
+    dataIndex: 'phone',
   },
+  // {
+  //   title: 'Xe đang bán',
+  //   dataIndex: 'vehiclesOrdered',
+  //   hideInSearch: true,
+  //   sorter: (a, b) => a.vehiclesOrdered > b.vehiclesOrdered,
+  // },
   {
     title: 'Xe đã bán',
     dataIndex: 'vehiclesSold',
     hideInSearch: true,
     sorter: (a, b) => a.vehiclesSold > b.vehiclesSold,
   },
-  {
-    title: 'Sức chứa tối đa',
-    dataIndex: 'maxCapacity',
-    hideInSearch: true,
-  },
-  {
-    title: 'Còn trống',
-    dataIndex: 'availableCapacity',
-    hideInSearch: true,
-  },
+  // {
+  //   title: 'Sức chứa tối đa',
+  //   dataIndex: 'maxCapacity',
+  //   hideInSearch: true,
+  // },
+  // {
+  //   title: 'Còn trống',
+  //   dataIndex: 'availableCapacity',
+  //   hideInSearch: true,
+  // },
   // {
   //   title: 'Tạo:',
   //   sorter: true,

@@ -79,12 +79,12 @@ export const columns = [
   //     return <TextArea style={{height: 200}} readOnly value={item.description}></TextArea>
   //   }
   // },
-  {
-    title: 'Dung tích',
-    dataIndex: 'capacity',
-    hideInSearch: true,
-    hideInTable: true,
-  },
+  // {
+  //   title: 'Dung tích',
+  //   dataIndex: 'capacity',
+  //   hideInSearch: true,
+  //   hideInTable: true,
+  // },
   {
     title: 'Tên',
     hideInSearch: true,

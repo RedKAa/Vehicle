@@ -36,19 +36,19 @@ const Page = ({ history }) => {
 
   const dcolumns = [
     ...columns,
-    {
-      title: 'Sức chứa hiện tại',
-      dataIndex: 'capacity',
-      width: 150,
-      valueType: 'select',
-      valueEnum: {
-        Low: { text: 'Thấp', status: 'New' },
-        Medium: { text: 'Trung bình', status: 'Processing' },
-        High: { text: 'Cao', status: 'Error' },
-      },
-      search: true,
-      align: 'center'
-    },
+    // {
+    //   title: 'Sức chứa hiện tại',
+    //   dataIndex: 'capacity',
+    //   width: 150,
+    //   valueType: 'select',
+    //   valueEnum: {
+    //     Low: { text: 'Thấp', status: 'New' },
+    //     Medium: { text: 'Trung bình', status: 'Processing' },
+    //     High: { text: 'Cao', status: 'Error' },
+    //   },
+    //   search: true,
+    //   align: 'center'
+    // },
     {
       title: 'Trạng thái',
       dataIndex: 'status',
