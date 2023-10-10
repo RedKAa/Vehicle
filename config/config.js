@@ -253,6 +253,13 @@ export default defineConfig({
               authority: [ROLE_DATA.SELLER, ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
             },
             {
+              path: '/customers',
+              name: 'test01',
+              icon: 'user',
+              component: './v_customer/',
+              authority: [ROLE_DATA.SELLER, ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
+            },
+            {
               name: 'Tài khoản',
               icon: 'user',
               path: '/profile',
