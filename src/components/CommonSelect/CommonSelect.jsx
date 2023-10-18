@@ -19,6 +19,7 @@ import { Empty, Radio, Select, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'umi';
 import { builIROption, builSOOption, buildDefaultOption, buildPlacesOption, buildProvidersOption, buildSellersOption, buildServicesOption, buildVehicleOption, buildVehicleOwnerOption, buildVouchersOption } from './utils';
+import { getSubjects } from '@/services/b_subject';
 
 const { Option } = Select;
 
@@ -317,7 +318,7 @@ const SelectCustomer = (props) => {
     />
   );
 };
- 
+
 const SelectVehicleIR = (props) => {
   return (
     <CommonSelect
@@ -392,7 +393,7 @@ const SelectItemReceipt = (props) => {
       fetchOnFirst={true}
       allowClear={true}
       buildOptions={builIROption}
-      onSearch={searchItemreceiptById} 
+      onSearch={searchItemreceiptById}
       normalizeRes={normalizeRes}
       {...props}
     />
@@ -412,6 +413,18 @@ const SelectSaleOrder = (props) => {
   );
 };
 
+const SelectSubject = (props) => {
+  return (
+    <CommonSelect
+      fetchOnFirst={true}
+      allowClear={true}
+      buildOptions={buildDefaultOption}
+      onSearch={getSubjects}
+      normalizeRes={normalizeRes}
+      {...props}
+    />
+  );
+};
 
 CommonSelect.SelectProductType = SelectProductType;
 CommonSelect.SelectBlogPostType = SelectBlogPostType;
@@ -434,6 +447,7 @@ CommonSelect.SelectCustomer = SelectCustomer;
 CommonSelect.SelectWarehouse = SelectWarehouse;
 CommonSelect.SelectSaleOrder = SelectSaleOrder;
 CommonSelect.SelectItemReceipt = SelectItemReceipt;
+CommonSelect.SelectSubject = SelectSubject;
 
 
 CommonSelect.defaultProps = {
@@ -451,6 +465,7 @@ export {
   SelectPlace, SelectProductType, SelectPromotions, SelectProvider,
   SelectSaleOrder, SelectSeller, SelectService, SelectServiceType, SelectTag,
   SelectVehicleIR, SelectVehicleOwner,
-  SelectVoucher, SelectWarehouse,SelectVehicleSO,SelectVehicle
+  SelectVoucher, SelectWarehouse,SelectVehicleSO,SelectVehicle,
+  SelectSubject,
 };
 export default CommonSelect;

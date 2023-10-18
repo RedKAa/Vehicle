@@ -265,6 +265,13 @@ export default defineConfig({
               // authority: [ROLE_DATA.SYSTEM_ADMIN],
             },
 
+            {
+              path: '/tags',
+              name: 'Thẻ',
+              icon: 'tag',
+              component: './b_tag/',
+              // authority: [ROLE_DATA.SYSTEM_ADMIN],
+            },
 
 
 
