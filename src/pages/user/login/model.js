@@ -37,8 +37,9 @@ const Model = {
             data: {
               access_token: 'MOCKUP_TOKEN',
               name: 'VehicleRSs Admin',
-              role: [ROLE_DATA.SYSTEM_ADMIN],
-              avatar:
+              id: 1,
+              role: 'Admin',
+              avatarLink:
                 'https://firebasestorage.googleapis.com/v0/b/unidelivery-fad6f.appspot.com/o/avatar.png?alt=media&token=5af53d2f-6798-46be-adba-1e6b31d16edd',
             },
           };
@@ -52,7 +53,7 @@ const Model = {
             payload: response,
           }); // Login successfully
 
-          response = yield call(getCurrentUser);
+          if(payload.email !== 'admintest'){response = yield call(getCurrentUser);}
           if(response) {
             yield put({
               type: 'changeLoginStatus',

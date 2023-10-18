@@ -36,8 +36,8 @@ export default defineConfig({
         : 'http://13.212.101.182:8088/api/v1',
     API_URL:
       REACT_APP_ENV == 'dev'
-        ? 'https://webapp-230621221913.azurewebsites.net/api'
-        : 'https://webapp-230621221913.azurewebsites.net/api',
+        ? 'https://fpt-blog.azurewebsites.net/api'
+        : 'https://fpt-blog.azurewebsites.net/api',
     REQUEST_HEADER_VALUE: 'bPG0upAJLk0gz/2W1baS2Q==',
     REACT_APP_ENV,
     ROLE_DATA,
@@ -98,178 +98,195 @@ export default defineConfig({
           routes: [
             {
               path: '/',
-              redirect: '/profile',
+              redirect: '/subjects',
             },
+            // {
+            //   path: '/accounts',
+            //   name: 'Người dùng',
+            //   icon: 'user-add',
+            //   component: './account/',
+            //   authority: [ROLE_DATA.SYSTEM_ADMIN],
+            // },
+            // {
+            //   name: 'Phiếu nhập xe',
+            //   icon: 'shopping',
+            //   path: '/itemreceipts/',
+            //   authority: [ROLE_DATA.SYSTEM_ADMIN,ROLE_DATA.STAFF, ROLE_DATA.ASSESSOR],
+            //   routes: [
+            //     {
+            //       path: '/itemreceipts/',
+            //       redirect: '/itemreceipts/index',
+            //     },
+            //     {
+            //       name: 'Phiếu nhập xe',
+            //       hideInMenu: true,
+            //       path: '/itemreceipts/index',
+            //       component: './v_itemreceipt/index',
+            //     },
+            //     {
+            //       name: 'Tạo phiếu nhập xe',
+            //       hideInMenu: true,
+            //       path: '/itemreceipts/create',
+            //       component: './v_itemreceipt/create',
+            //     },
+            //     {
+            //       name: 'Phiếu nhập xe',
+            //       hideInMenu: true,
+            //       path: '/itemreceipts/:updateId',
+            //       component: './v_itemreceipt/[updateId]',
+            //     },
+            //   ],
+            // }, //end
+            // {
+            //   name: 'Phiếu bán hàng',
+            //   icon: 'shopping',
+            //   path: '/saleorders/',
+            //   authority: [ROLE_DATA.SYSTEM_ADMIN, ROLE_DATA.SELLER],
+            //   routes: [
+            //     {
+            //       path: '/saleorders/',
+            //       redirect: '/saleorders/index',
+            //     },
+            //     {
+            //       name: 'Phiếu bán hàng',
+            //       hideInMenu: true,
+            //       path: '/saleorders/index',
+            //       component: './v_saleorder/index',
+            //     },
+            //     {
+            //       name: 'Tạo phiếu bán hàng',
+            //       hideInMenu: true,
+            //       path: '/saleorders/create',
+            //       component: './v_saleorder/create',
+            //     },
+            //     {
+            //       name: 'Phiếu bán hàng',
+            //       hideInMenu: true,
+            //       path: '/saleorders/:updateId',
+            //       component: './v_saleorder/[updateId]',
+            //     },
+            //   ],
+            // }, //end
+            // {
+            //   name: 'Phiếu nhập/xuất kho',
+            //   icon: 'shopping',
+            //   path: '/transferorders/',
+            //   authority: [ROLE_DATA.STAFF,ROLE_DATA.SYSTEM_ADMIN],
+            //   routes: [
+            //     {
+            //       path: '/transferorders/',
+            //       redirect: '/transferorders/index',
+            //     },
+            //     {
+            //       name: 'Danh sách phiếu nhập/xuất kho',
+            //       hideInMenu: true,
+            //       path: '/transferorders/index',
+            //       component: './v_transferorder/index',
+            //     },
+            //     {
+            //       name: 'Tạo phiếu nhập kho',
+            //       hideInMenu: true,
+            //       path: '/transferorders/create_ir',
+            //       component: './v_transferorder/create_ir',
+            //     },
+            //     {
+            //       name: 'Tạo phiếu xuất kho',
+            //       hideInMenu: true,
+            //       path: '/transferorders/create_so',
+            //       component: './v_transferorder/create_so',
+            //     },
+            //     // {
+            //     //   name: 'update',
+            //     //   hideInMenu: true,
+            //     //   path: '/transferorders/:updateId',
+            //     //   component: './v_transferorder/[updateId]',
+            //     // },
+            //   ],
+            // }, //end
+            // {
+            //   path: '/sellers',
+            //   name: 'Nhân viên bán hàng',
+            //   icon: 'user',
+            //   component: './seller/',
+            //   authority: [ROLE_DATA.SYSTEM_ADMIN],
+            // },
+            // {
+            //   path: '/assessors',
+            //   name: 'Thẩm định viên',
+            //   icon: 'user',
+            //   component: './v_assessor/',
+            //   authority: [ROLE_DATA.SYSTEM_ADMIN],
+            // },
+            // {
+            //   path: '/staffs',
+            //   name: 'Nhân viên',
+            //   icon: 'user',
+            //   component: './v_staff/',
+            //   authority: [ROLE_DATA.SYSTEM_ADMIN],
+            // },
+            // {
+            //   path: '/warehouses',
+            //   name: 'Kho bãi',
+            //   icon: 'shop',
+            //   component: './v_warehouse/',
+            //   authority: [ROLE_DATA.SYSTEM_ADMIN],
+            // },
+            // {
+            //   path: '/vehicles',
+            //   name: 'Xe',
+            //   icon: 'shop',
+            //   component: './v_vehicle/',
+            //   authority:  [ROLE_DATA.ASSESSOR, ROLE_DATA.STAFF,ROLE_DATA.SELLER,ROLE_DATA.SYSTEM_ADMIN],
+            // },
+            // {
+            //   path: '/vehicleowners',
+            //   name: 'Chủ sở hữu',
+            //   icon: 'user',
+            //   component: './v_vehicleowner/',
+            //   authority: [ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
+            // },
+            // {
+            //   path: '/customers',
+            //   name: 'Khách hàng',
+            //   icon: 'user',
+            //   component: './v_customer/',
+            //   authority: [ROLE_DATA.SELLER, ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
+            // },
+
+
+
+
+
             {
-              path: '/accounts',
-              name: 'Người dùng',
-              icon: 'user-add',
-              component: './account/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN],
-            },
-            {
-              name: 'Phiếu nhập xe',
-              icon: 'shopping',
-              path: '/itemreceipts/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN,ROLE_DATA.STAFF, ROLE_DATA.ASSESSOR],
-              routes: [
-                {
-                  path: '/itemreceipts/',
-                  redirect: '/itemreceipts/index',
-                },
-                {
-                  name: 'Phiếu nhập xe',
-                  hideInMenu: true,
-                  path: '/itemreceipts/index',
-                  component: './v_itemreceipt/index',
-                },
-                {
-                  name: 'Tạo phiếu nhập xe',
-                  hideInMenu: true,
-                  path: '/itemreceipts/create',
-                  component: './v_itemreceipt/create',
-                },
-                {
-                  name: 'Phiếu nhập xe',
-                  hideInMenu: true,
-                  path: '/itemreceipts/:updateId',
-                  component: './v_itemreceipt/[updateId]',
-                },
-              ],
-            }, //end
-            {
-              name: 'Phiếu bán hàng',
-              icon: 'shopping',
-              path: '/saleorders/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN, ROLE_DATA.SELLER],
-              routes: [
-                {
-                  path: '/saleorders/',
-                  redirect: '/saleorders/index',
-                },
-                {
-                  name: 'Phiếu bán hàng',
-                  hideInMenu: true,
-                  path: '/saleorders/index',
-                  component: './v_saleorder/index',
-                },
-                {
-                  name: 'Tạo phiếu bán hàng',
-                  hideInMenu: true,
-                  path: '/saleorders/create',
-                  component: './v_saleorder/create',
-                },
-                {
-                  name: 'Phiếu bán hàng',
-                  hideInMenu: true,
-                  path: '/saleorders/:updateId',
-                  component: './v_saleorder/[updateId]',
-                },
-              ],
-            }, //end
-            {
-              name: 'Phiếu nhập/xuất kho',
-              icon: 'shopping',
-              path: '/transferorders/',
-              authority: [ROLE_DATA.STAFF,ROLE_DATA.SYSTEM_ADMIN],
-              routes: [
-                {
-                  path: '/transferorders/',
-                  redirect: '/transferorders/index',
-                },
-                {
-                  name: 'Danh sách phiếu nhập/xuất kho',
-                  hideInMenu: true,
-                  path: '/transferorders/index',
-                  component: './v_transferorder/index',
-                },
-                {
-                  name: 'Tạo phiếu nhập kho',
-                  hideInMenu: true,
-                  path: '/transferorders/create_ir',
-                  component: './v_transferorder/create_ir',
-                },
-                {
-                  name: 'Tạo phiếu xuất kho',
-                  hideInMenu: true,
-                  path: '/transferorders/create_so',
-                  component: './v_transferorder/create_so',
-                },
-                // {
-                //   name: 'update',
-                //   hideInMenu: true,
-                //   path: '/transferorders/:updateId',
-                //   component: './v_transferorder/[updateId]',
-                // },
-              ],
-            }, //end
-            {
-              path: '/sellers',
-              name: 'Nhân viên bán hàng',
+              path: '/subjects',
+              name: 'Môn học ',
               icon: 'user',
-              component: './seller/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN],
+              component: './b_subjects/',
+              // authority: [ROLE_DATA.SYSTEM_ADMIN],
             },
-            {
-              path: '/assessors',
-              name: 'Thẩm định viên',
-              icon: 'user',
-              component: './v_assessor/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN],
-            },
-            {
-              path: '/staffs',
-              name: 'Nhân viên',
-              icon: 'user',
-              component: './v_staff/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN],
-            },
-            {
-              path: '/warehouses',
-              name: 'Kho bãi',
-              icon: 'shop',
-              component: './v_warehouse/',
-              authority: [ROLE_DATA.SYSTEM_ADMIN],
-            },
-            {
-              path: '/vehicles',
-              name: 'Xe',
-              icon: 'shop',
-              component: './v_vehicle/',
-              authority:  [ROLE_DATA.ASSESSOR, ROLE_DATA.STAFF,ROLE_DATA.SELLER,ROLE_DATA.SYSTEM_ADMIN],
-            },
-            {
-              path: '/vehicleowners',
-              name: 'Chủ sở hữu',
-              icon: 'user',
-              component: './v_vehicleowner/',
-              authority: [ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
-            },
-            {
-              path: '/customers',
-              name: 'Khách hàng',
-              icon: 'user',
-              component: './v_customer/',
-              authority: [ROLE_DATA.SELLER, ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
-            },
-            {
-              name: 'Tài khoản',
-              icon: 'user',
-              path: '/profile',
-              authority: [ROLE_DATA.ASSESSOR, ROLE_DATA.SELLER, ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
-              routes: [
-                {
-                  path: '/profile/',
-                  redirect: '/profile/index',
-                },
-                {
-                  name: 'Tài khoản người dùng',
-                  hideInMenu: true,
-                  path: '/profile/index',
-                  component: './profile/index',
-                },
-              ],
-            }, //end
+
+
+
+
+
+            // {
+            //   name: 'Tài khoản',
+            //   icon: 'user',
+            //   path: '/profile',
+            //   authority: [ROLE_DATA.ASSESSOR, ROLE_DATA.SELLER, ROLE_DATA.STAFF, ROLE_DATA.SYSTEM_ADMIN],
+            //   routes: [
+            //     {
+            //       path: '/profile/',
+            //       redirect: '/profile/index',
+            //     },
+            //     {
+            //       name: 'Tài khoản người dùng',
+            //       hideInMenu: true,
+            //       path: '/profile/index',
+            //       component: './profile/index',
+            //     },
+            //   ],
+            // }, //end
             {
               component: './404',
             },
