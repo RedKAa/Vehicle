@@ -60,7 +60,7 @@ const TagPage = ({ history }) => {
             onChange={(bool) => {
               let status = bool ? 'Active' : 'Disable';
               let id = subject.id;
-              activationHandler({id, status});
+              activationHandler({ id, status });
             }}
           />
         );
@@ -70,31 +70,31 @@ const TagPage = ({ history }) => {
       title: 'Hành động',
       search: false,
       render: (_, tag) =>
-        (<ModalForm
-          title="Cập nhật thẻ"
-          modalProps={{
-            destroyOnClose: true,
-          }}
-          width="500px"
-          name="upadte-Tag"
-          key={`upadte-Tag${tag.id}`}
-          initialValues={tag}
-          onFinish={(values) =>
-            updateTag(tag.id, values)
-              .then(ref.current?.reload)
-              .then(() => true)
-          }
-          trigger={<Button type="link">Cập nhật</Button>}
-        >
-          <TagForm update/>
-        </ModalForm>),
+      (<ModalForm
+        title="Cập nhật thẻ"
+        modalProps={{
+          destroyOnClose: true,
+        }}
+        width="500px"
+        name="upadte-Tag"
+        key={`upadte-Tag${tag.id}`}
+        initialValues={tag}
+        onFinish={(values) =>
+          updateTag(tag.id, values)
+            .then(ref.current?.reload)
+            .then(() => true)
+        }
+        trigger={<Button type="link">Cập nhật</Button>}
+      >
+        <TagForm update />
+      </ModalForm>),
     }
   ];
 
   return (
     <PageContainer>
       <ResoTable
-        additionParams={{ orderBy: 'createAt-dec'}}
+        additionParams={{ orderBy: 'createAt-dec' }}
         rowSelection={rowSelection}
         tableAlertOptionRender={({ _, __, onCleanSelected }) => [
           <AsyncButton
@@ -134,6 +134,15 @@ const TagPage = ({ history }) => {
               render: (props, defaultDoms) => {
                 return [
                   // ...defaultDoms,
+
+                  <Button
+                    key="cancel"
+                    onClick={() => {
+                      setVisible(false);
+                    }}
+                  >
+                    Hủy
+                  </Button>,
                   <Button
                     key="ok"
                     type="primary"
@@ -151,14 +160,6 @@ const TagPage = ({ history }) => {
                   >
                     Tạo
                   </Button>,
-                //   <Button
-                //   key="cancel"
-                //   onClick={() => {
-                //     setVisible(false);
-                //   }}
-                // >
-                //   Hủy
-                // </Button>,
                 ];
               },
             }}
