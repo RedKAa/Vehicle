@@ -117,6 +117,7 @@ const SubjectPage = ({ history }) => {
           <ModalForm
             title="Tạo môn học"
             modalProps={{
+              width: 500,
               destroyOnClose: true,
             }}
             onValuesChange={console.log}
@@ -130,7 +131,16 @@ const SubjectPage = ({ history }) => {
                 return [
                   // ...defaultDoms,
                   <Button
+                    key="cancel"
+                    onClick={() => {
+                      setVisible(false);
+                    }}
+                  >
+                    Hủy
+                  </Button>,
+                  <Button
                     key="ok"
+                    type="primary"
                     onClick={() => {
                       try {
                         props.form.validateFields().then((values) => {

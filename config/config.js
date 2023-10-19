@@ -256,11 +256,18 @@ export default defineConfig({
 
 
 
+            {
+              path: '/accounts',
+              name: 'Người dùng',
+              icon: 'user',
+              component: './b_accounts/',
+              // authority: [ROLE_DATA.SYSTEM_ADMIN],
+            },
 
             {
               path: '/subjects',
               name: 'Môn học ',
-              icon: 'user',
+              icon: 'BookOutlined',
               component: './b_subjects/',
               // authority: [ROLE_DATA.SYSTEM_ADMIN],
             },
