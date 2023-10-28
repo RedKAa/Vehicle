@@ -280,7 +280,13 @@ export default defineConfig({
               // authority: [ROLE_DATA.SYSTEM_ADMIN],
             },
 
-
+            {
+              path: '/ranks',
+              name: 'Xếp Hạng',
+              icon: 'StarOutlined',
+              component: './b_ranks/',
+              // authority: [ROLE_DATA.SYSTEM_ADMIN],
+            },
 
 
             // {

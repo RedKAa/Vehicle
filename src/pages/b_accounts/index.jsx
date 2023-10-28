@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Tag, Image, Input, Switch  } from 'antd';
+import { Button, Tag, Image, Input, Switch } from 'antd';
 import { ModalForm } from '@ant-design/pro-form';
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -28,7 +28,7 @@ const AccountListPage = () => {
 
   const createHandler = async (values) => {
     console.log(`values`, values);
-    let data = {...values};
+    let data = { ...values };
     const res = await createAccount(data);
     setVisibleadds(false);
     setVisibleadd(false);
@@ -85,28 +85,28 @@ const AccountListPage = () => {
           {
             title: 'Vai Trò',
             dataIndex: 'role',
-              valueEnum: {
-                Admin: {
-                  text: 'Quản trị viên',
-                },
-                Teacher: {
-                  text: 'Giảng viên',
-                },
-                Student: {
-                  text: 'Sinh viên',
-                },
+            valueEnum: {
+              Admin: {
+                text: 'Quản trị viên',
               },
-              render: (text, record) => {
-                if (record.role === 'Student') {
-                  return <Tag>Sinh viên</Tag>;
-                } else if (record.role === 'Teacher') {
-                  return <Tag>Giảng viên</Tag>;
-                } else if (record.role === 'Admin') {
-                  return <Tag>Quản trị viên</Tag>;
-                }
-                return <Tag>{record.role}</Tag>;
+              Teacher: {
+                text: 'Giảng viên',
+              },
+              Student: {
+                text: 'Sinh viên',
               },
             },
+            render: (text, record) => {
+              if (record.role === 'Student') {
+                return <Tag>Sinh viên</Tag>;
+              } else if (record.role === 'Teacher') {
+                return <Tag>Giảng viên</Tag>;
+              } else if (record.role === 'Admin') {
+                return <Tag>Quản trị viên</Tag>;
+              }
+              return <Tag>{record.role}</Tag>;
+            },
+          },
 
           {
             title: 'Email',
@@ -147,10 +147,10 @@ const AccountListPage = () => {
             title: 'Ảnh',
             dataIndex: 'avatarLink',
             hideInSearch: true,
-            render: (_, { avatarLink }) =>  avatarLink && (<Image
-            width={100}
-            src={avatarLink}
-          />)
+            render: (_, { avatarLink }) => avatarLink && (<Image
+              width={100}
+              src={avatarLink}
+            />)
           },
 
           {
@@ -171,7 +171,7 @@ const AccountListPage = () => {
                   onChange={(bool) => {
                     let status = bool ? 'Active' : 'Disable';
                     let id = account.id;
-                    activationHandler({id, status});
+                    activationHandler({ id, status });
                   }}
                 />
               );
@@ -218,13 +218,13 @@ const AccountListPage = () => {
                 return [
                   // ...defaultDoms,
                   <Button
-                  key="cancel"
-                  onClick={() => {
-                    setVisibleadd(false);
-                  }}
-                >
-                  Hủy
-                </Button>,
+                    key="cancel"
+                    onClick={() => {
+                      setVisibleadd(false);
+                    }}
+                  >
+                    Hủy
+                  </Button>,
                   <Button
                     key="ok"
                     type='primary'
@@ -253,7 +253,7 @@ const AccountListPage = () => {
         ]}
         rowKey="id"
         resource="users"
-        additionParams={{orderBy: 'createAt-dec'}}
+        additionParams={{ orderBy: 'createAt-dec' }}
         isShowSelection={false}
       />
     </PageContainer>
