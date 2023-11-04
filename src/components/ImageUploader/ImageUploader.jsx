@@ -116,7 +116,7 @@ const ImageUploader = ({ multiple = false, onChange: onChangeForm, disable = fal
           // name="avatar"
           className="avatar-uploader"
           listType="picture-card"
-          action={`${API_URL}/firebase/files`}
+          action={`https://webapp-230621221913.azurewebsites.net/api/firebase/files`}
           showUploadList={multiple}
           style={{ width: 250 }}
           multiple={multiple}

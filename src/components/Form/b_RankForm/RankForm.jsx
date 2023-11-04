@@ -39,7 +39,7 @@ const RankForm = ({ readonly = false, update = false, }) => {
           valuePropName="fileList"
           getValueFromEvent={normFile}
           normalize={normalizeImg}
-          name="avatarLink"
+          name="imgLink"
           label="Hình xếp hạng"
           readonly={readonly}
         >
@@ -50,13 +50,13 @@ const RankForm = ({ readonly = false, update = false, }) => {
           valuePropName="fileList"
           getValueFromEvent={normFile}
           normalize={normalizeImg}
-          name="avatarLink"
+          name="imgLink"
           label="Hình xếp hạng"
           readonly={readonly}
         >
           <Image
             width={200}
-            src="avatarLink"
+            src="imgLink"
           />
         </ProForm.Item>}
       </ProForm.Group>

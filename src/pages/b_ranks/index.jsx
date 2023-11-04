@@ -107,8 +107,8 @@ const RankPage = ({ history }) => {
             destroyOnClose: true,
           }}
           width="500px"
-          name="upadte-Rank"
-          key={`upadte-Rank${rank.id}`}
+          name="upadte-rank"
+          key={`upadte-rank_${rank.id}`}
           initialValues={rank}
           onFinish={(values) =>
             updateRank(rank.id, values)
@@ -117,7 +117,7 @@ const RankPage = ({ history }) => {
           }
           trigger={<Button type="link">Cập nhật</Button>}
         >
-          <RankForm update/>
+          <RankForm updateMode/>
         </ModalForm>),
     }
   ];

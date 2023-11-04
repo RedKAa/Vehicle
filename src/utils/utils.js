@@ -497,6 +497,9 @@ export const getTmpTransaction = (type) => {
     }
 }
 export const validatePhoneVN = (phone) => {
+  if (!phone || phone.trim() === '') {
+    return true; // Trả về false nếu phone rỗng hoặc null
+  }
   return phone.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/);
 };
 const validateId = (id) => {
