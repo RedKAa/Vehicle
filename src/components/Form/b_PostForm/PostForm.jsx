@@ -4,7 +4,7 @@ import ProForm, { ProFormSelect, ProFormText } from '@ant-design/pro-form';
 import { Image } from 'antd';
 import React from 'react';
 
-const AccountForm = ({ updateMode = false, providerMode = false, readonly = false }) => {
+const PostForm = ({ updateMode = false, providerMode = false, readonly = false }) => {
   return (
     <>
       <ProForm.Group>
@@ -46,7 +46,6 @@ const AccountForm = ({ updateMode = false, providerMode = false, readonly = fals
               {
                 min: 5,
                 max: 32,
-                required: true,
                 message: 'Tên từ 5 đến 32 kí tự',
               },
             ]}
@@ -131,4 +130,4 @@ const AccountForm = ({ updateMode = false, providerMode = false, readonly = fals
   );
 };
 
-export default AccountForm;
+export default PostForm;

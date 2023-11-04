@@ -87,7 +87,7 @@ const AccountListPage = () => {
           //     transform : (value) => ({ Ids: getIds(value) })
           //   },
           // },
-          
+
           // {
           //   title: 'Email',
           //   dataIndex: 'Emails',
@@ -111,15 +111,15 @@ const AccountListPage = () => {
           //     return <TextArea placeholder="Nhập danh sách số điện thoại..." />;
           //   },
           // },
-          {
-            title: 'Ảnh đại diện',
-            dataIndex: 'avatarLink',
-            hideInSearch: true,
-            render: (_, { avatarLink }) =>  avatarLink && (<Image
-            width={100}
-            src={avatarLink}
-          />)
-          },
+          // {
+          //   title: 'Ảnh đại diện',
+          //   dataIndex: 'avatarLink',
+          //   hideInSearch: true,
+          //   render: (_, { avatarLink }) =>  avatarLink && (<Image
+          //   width={100}
+          //   src={avatarLink}
+          // />)
+          // },
           // {
           //   title: 'Tạo:',
           //   sorter: true,
@@ -200,7 +200,7 @@ const AccountListPage = () => {
           //   hideInSearch: true,
           //   sorter: (a, b) => a.deleteAt > b.deleteAt,
           // },
-          
+
           {
             title: 'Trạng thái',
             dataIndex: 'status',
@@ -293,7 +293,7 @@ const AccountListPage = () => {
                 ];
               },
             }}
-            trigger={<Button icon={<PlusOutlined />} type="primary" onClick={() => setVisibleadd(true)} type='primary'>Thêm tài khoản</Button>}
+            trigger={<Button icon={<PlusOutlined />} type="primary" onClick={() => setVisibleadd(true)}>Thêm tài khoản</Button>}
           >
             <AccountForm />
           </ModalForm>

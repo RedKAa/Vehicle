@@ -265,6 +265,16 @@ export default defineConfig({
             },
 
             {
+              path: '/posts',
+              name: 'Bài Viết',
+              icon: 'FormOutlined',
+              // component: './b_ranks/',
+              // component: './b_post/',
+              component: './b_post/',
+              // authority: [ROLE_DATA.SYSTEM_ADMIN],
+            },
+
+            {
               path: '/subjects',
               name: 'Môn học ',
               icon: 'BookOutlined',

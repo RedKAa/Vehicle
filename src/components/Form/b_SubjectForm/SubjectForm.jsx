@@ -8,9 +8,10 @@ const SubjectForm = ({readonly = false, update = false,}) => {
         <ProFormText
             rules={[
               {
-                min: 3,
+                min: 2,
                 max: 100,
-                message: 'Tên từ 3 đến 100 kí tự',
+                required: true,
+                message: 'Tên từ 2 đến 100 kí tự',
               },
             ]}
             label="Tên môn học"

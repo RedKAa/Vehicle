@@ -10,6 +10,7 @@ const TagForm = ({readonly = false, update = false,}) => {
               {
                 min: 3,
                 max: 100,
+                required: true,
                 message: 'Tên từ 3 đến 100 kí tự',
               },
             ]}

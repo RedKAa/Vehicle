@@ -4,12 +4,12 @@ import { ModalForm } from '@ant-design/pro-form';
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ResoTable from '@/components/ResoTable/ResoTable';
-import AccountForm from '@/components/Form/b_AccountForm/AccountForm';
-import { activationById, createAccount, deleteAccount, updateAccount } from '@/services/b_account';
+import PostForm from '@/components/Form/b_PostForm/PostForm';
+import { activationById, createPost, deletePost, updatePost } from '@/services/b_post';
 import AsyncButton from '@/components/AsyncButton';
 import moment from 'moment';
 
-const AccountListPage = () => {
+const PostListPage = () => {
   const ref = React.useRef();
   const [selectedRows, setSelectedRows] = React.useState([]);
   const [visibleadd, setVisibleadd] = React.useState(false);
@@ -22,14 +22,14 @@ const AccountListPage = () => {
     type: 'radio',
   };
 
-  const delecteAccountHandler = () => {
-    return deleteAccount(selectedRows[0]).then(() => ref.current?.reload());
+  const delectePostHandler = () => {
+    return deletePost(selectedRows[0]).then(() => ref.current?.reload());
   };
 
   const createHandler = async (values) => {
     console.log(`values`, values);
     let data = { ...values };
-    const res = await createAccount(data);
+    const res = await createPost(data);
     setVisibleadds(false);
     setVisibleadd(false);
     ref.current?.reload();
@@ -43,7 +43,7 @@ const AccountListPage = () => {
   };
 
   return (
-    <PageContainer title="Danh sách người dùng">
+    <PageContainer title="Danh sách bài viết">
       <ResoTable
         search={true}
         actionRef={ref}
@@ -51,14 +51,14 @@ const AccountListPage = () => {
         tableAlertOptionRender={({ _, __, onCleanSelected }) => [
           <AsyncButton
             isNeedConfirm={{
-              title: 'Xác nhận xóa người dùng',
-              content: 'Bạn có muốn xóa người dùng này không',
+              title: 'Xác nhận xóa bài viết',
+              content: 'Bạn có muốn xóa bài viết này không',
               okText: 'Xác nhận',
               cancelText: 'Không',
             }}
             btnProps={{ danger: true, type: 'link' }}
-            onClick={() => delecteAccountHandler().then(onCleanSelected)}
-            title={`Xóa ${selectedRows.length} người dùng`}
+            onClick={() => delectePostHandler().then(onCleanSelected)}
+            title={`Xóa ${selectedRows.length} bài viết`}
             key={selectedRows[0]}
           />,
         ]}
@@ -72,59 +72,61 @@ const AccountListPage = () => {
 
             hideInForm: true,
             hideInSearch: true,
-            copyable: false,
-          },
-
-          {
-            title: 'Tên',
-            dataIndex: 'userName',
-            sorter: (a, b) => a.userName > b.userName,
             copyable: true,
           },
 
-
           {
-            title: 'Vai Trò',
-            dataIndex: 'role',
-            valueEnum: {
-              Admin: {
-                text: 'Quản trị viên',
-              },
-              Teacher: {
-                text: 'Giảng viên',
-              },
-              Student: {
-                text: 'Sinh viên',
-              },
-            },
-            render: (text, record) => {
-              if (record.role === 'Student') {
-                return <Tag>Sinh viên</Tag>;
-              } else if (record.role === 'Teacher') {
-                return <Tag>Giảng viên</Tag>;
-              } else if (record.role === 'Admin') {
-                return <Tag>Quản trị viên</Tag>;
-              }
-              return <Tag>{record.role}</Tag>;
-            },
+            title: 'Tiêu đề',
+            dataIndex: 'title',
+            // sorter: (a, b) => a.userName > b.userName,
           },
 
           {
-            title: 'Email',
-            dataIndex: 'email',
-            copyable: true,
-            hideInSearch: false,
-          },
-          {
-            title: 'SĐT',
-            dataIndex: 'phone',
-            copyable: true,
-            render: (text) => (
-              <div style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {text}
-              </div>
+            title: 'Nội dung',
+            dataIndex: 'content',
+            render: (_, { content }) => (
+              <div style={{ border: '1px dotted', padding: '20px', height: '500px', 'overflow-y': 'scroll' }} dangerouslySetInnerHTML={{ __html: content }} />
             ),
+            // sorter: (a, b) => a.userName > b.userName,
           },
+
+          // {
+          //   title: 'Vai Trò',
+          //   dataIndex: 'role',
+          //   valueEnum: {
+          //     Admin: {
+          //       text: 'Quản trị viên',
+          //     },
+          //     Teacher: {
+          //       text: 'Giảng viên',
+          //     },
+          //     Student: {
+          //       text: 'Sinh viên',
+          //     },
+          //   },
+          //   render: (text, record) => {
+          //     if (record.role === 'Student') {
+          //       return <Tag>Sinh viên</Tag>;
+          //     } else if (record.role === 'Teacher') {
+          //       return <Tag>Giảng viên</Tag>;
+          //     } else if (record.role === 'Admin') {
+          //       return <Tag>Quản trị viên</Tag>;
+          //     }
+          //     return <Tag>{record.role}</Tag>;
+          //   },
+          // },
+
+          // {
+          //   title: 'Email',
+          //   dataIndex: 'email',
+          //   copyable: true,
+          //   hideInSearch: false,
+          // },
+          // {
+          //   title: 'SĐT',
+          //   dataIndex: 'phone',
+          //   copyable: true,
+          // },
 
           {
             title: 'Ngày Tạo',
@@ -137,20 +139,20 @@ const AccountListPage = () => {
               <Tag color="#78cc7a">{moment(createAt).format('DD-MM-YYYY')}</Tag>
             ),
           },
-          {
-            title: 'Ngày Cập Nhật',
-            dataIndex: 'updateAt',
-            valueType: 'date',
-            hideInSearch: true,
-            // hideInTable: true,
-            sorter: (a, b) => a.updateAt > b.updateAt,
-            render: ({ createAt }) => (
-              <Tag color="#78cc7a">{moment(createAt).format('DD-MM-YYYY')}</Tag>
-            ),
-          },
+          // {
+          //   title: 'Ngày Cập Nhật',
+          //   dataIndex: 'updateAt',
+          //   valueType: 'date',
+          //   hideInSearch: true,
+          //   // hideInTable: true,
+          //   sorter: (a, b) => a.updateAt > b.updateAt,
+          //   render: ({ createAt }) => (
+          //     <Tag color="#78cc7a">{moment(createAt).format('DD-MM-YYYY')}</Tag>
+          //   ),
+          // },
 
           {
-            title: 'Ảnh',
+            title: 'Ảnh Bìa',
             dataIndex: 'avatarLink',
             hideInSearch: true,
             render: (_, { avatarLink }) => avatarLink && (<Image
@@ -170,13 +172,13 @@ const AccountListPage = () => {
             },
             search: false,
             align: 'center',
-            render: (_, account) => {
+            render: (_, post) => {
               return (
                 <Switch
-                  checked={account.status == 'Active' ? true : false}
+                  checked={post.status == 'Active' ? true : false}
                   onChange={(bool) => {
                     let status = bool ? 'Active' : 'Disable';
-                    let id = account.id;
+                    let id = post.id;
                     activationHandler({ id, status });
                   }}
                 />
@@ -186,38 +188,38 @@ const AccountListPage = () => {
           {
             title: 'Hành động',
             search: false,
-            render: (_, account) => (
+            render: (_, post) => (
               <ModalForm
-                title="Cập nhật người dùng"
+                title="Cập nhật bài viết"
                 modalProps={{
                   destroyOnClose: true,
                 }}
-                name="upadte-account"
-                key={`upadte-account_${account.id}`}
-                initialValues={account}
+                name="upadte-post"
+                key={`upadte-post_${post.id}`}
+                initialValues={post}
                 onFinish={(values) =>
-                  updateAccount(account.id, values)
+                  updatePost(post.id, values)
                     .then(ref.current?.reload)
                     .then(() => true)
                 }
                 trigger={<Button type="link">Cập nhật</Button>}
               >
-                <AccountForm updateMode />
+                <PostForm updateMode />
               </ModalForm>
             ),
           },
         ]}
         toolBarRender={() => [
           <ModalForm
-            title="Tạo người dùng"
+            title="Tạo bài viết"
             modalProps={{
               destroyOnClose: true,
             }}
             visible={visibleadd}
             onValuesChange={console.log}
             onFinishFailed={console.log}
-            name="create-account"
-            key="create-account"
+            name="create-post"
+            key="create-post"
             onFinish={createHandler}
             submitter={{
               render: (props, defaultDoms) => {
@@ -251,19 +253,20 @@ const AccountListPage = () => {
                 ];
               },
             }}
-            trigger={<Button icon={<PlusOutlined />} type="primary" onClick={() => setVisibleadd(true)} >Thêm người dùng</Button>}
+            trigger={<Button icon={<PlusOutlined />} type="primary" onClick={() => setVisibleadd(true)} >Thêm bài viết</Button>}
           >
-            <AccountForm />
+            <PostForm />
           </ModalForm>
 
         ]}
         rowKey="id"
-        resource="users"
+        resource="posts"
         additionParams={{ orderBy: 'createAt-dec' }}
         isShowSelection={false}
       />
+
     </PageContainer>
   );
 };
 
-export default AccountListPage;
+export default PostListPage;

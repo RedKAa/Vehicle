@@ -10,7 +10,8 @@ const TagForm = ({ readonly = false, update = false, }) => {
           rules={[
             {
               min: 3,
-              max: 100,
+              max: 30,
+              required: true,
               message: 'Tên từ 3 đến 100 kí tự',
             },
           ]}
@@ -32,7 +33,7 @@ const TagForm = ({ readonly = false, update = false, }) => {
             }))}
         />
 
-        {/* <ProForm.Item
+        <ProForm.Item
           label="Môn học"
           name="subjectId"
           rules={[{ required: true, message: 'Vui lòng chọn môn học' }]}
@@ -43,7 +44,7 @@ const TagForm = ({ readonly = false, update = false, }) => {
             placeholder="Tìm môn học"
             fetchOnFirst
           />
-        </ProForm.Item> */}
+        </ProForm.Item>
       </ProForm.Group>
     </>
   );

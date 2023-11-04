@@ -2,7 +2,7 @@ export default {
   'dashboard.title': 'Bảng điều khiển',
   'dashboard.hello': 'Xin chào',
   'dashboard.position': 'Quản lý',
-  'dashboard.brand': 'VehicleRS',
+  'dashboard.brand': 'FptBlog',
   'dashboard.sync': 'Đồng bộ voucher / Khuyến mãi',
   'dashboard.sync.title': 'Chọn cửa hàng',
   'dashboard.sync.btn': 'Đồng bộ voucher / Khuyến mãi',

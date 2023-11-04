@@ -1,13 +1,14 @@
 import AsyncButton from '@/components/AsyncButton';
+import { Button, Tag, Image, Input, Switch  } from 'antd';
 import ResoTable from '@/components/ResoTable/ResoTable';
 import { activationById, createSubject, deleteSubject, updateSubject } from '@/services/b_subject';
 import { PlusOutlined } from '@ant-design/icons';
 import { ModalForm } from '@ant-design/pro-form';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
 import { Column } from './config';
 import SubjectForm from '@/components/Form/b_SubjectForm/SubjectForm';
+import moment from 'moment';
 
 
 const SubjectPage = ({ history }) => {
@@ -42,13 +43,35 @@ const SubjectPage = ({ history }) => {
   const columns = [
     ...Column,
     {
+      title: 'Ngày Tạo',
+      dataIndex: 'createAt',
+      valueType: 'date',
+      hideInSearch: true,
+      // hideInTable: true,
+      sorter: (a, b) => a.createAt > b.createAt,
+      render: ({ createAt }) => (
+        <Tag color="#78cc7a">{moment(createAt).format('DD-MM-YYYY')}</Tag>
+      ),
+    },
+    {
+      title: 'Ngày Cập Nhật',
+      dataIndex: 'updateAt',
+      valueType: 'date',
+      hideInSearch: true,
+      hideInTable: false,
+      sorter: (a, b) => a.updateAt > b.updateAt,
+      render: ({ createAt }) => (
+        <Tag color="#78cc7a">{moment(createAt).format('DD-MM-YYYY')}</Tag>
+      ),
+    },
+    {
       title: 'Trạng thái',
       dataIndex: 'status',
       width: 150,
       valueType: 'select',
       valueEnum: {
-        true: { text: 'Đang hiển thị', status: 'Processing' },
-        false: { text: 'không hiển thị', status: 'Error' },
+        true: { text: 'Đang hiển thị', status: 'Active' },
+        false: { text: 'không hiển thị', status: 'Disable' },
       },
       search: false,
       align: 'center',

@@ -1,6 +1,6 @@
 import { Input, Tag } from 'antd';
+import moment from 'moment';
 const { TextArea } = Input;
-
 
 export const Column = [
   {
@@ -11,7 +11,7 @@ export const Column = [
 
   {
     title: 'Tên',
-    dataIndex: 'name',
+    dataIndex: 'title',
 
   },
 

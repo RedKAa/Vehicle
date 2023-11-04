@@ -66,11 +66,11 @@ const RankPage = ({ history }) => {
     },
     {
       title: 'Ảnh xếp hạng',
-      dataIndex: 'avatarLink',
+      dataIndex: 'imgLink',
       hideInSearch: true,
-      render: (_, { avatarLink }) =>  avatarLink && (<Image
+      render: (_, { imgLink }) =>  imgLink && (<Image
       width={100}
-      src={avatarLink}
+      src={imgLink}
     />)
     },
     {

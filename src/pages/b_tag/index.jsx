@@ -123,8 +123,8 @@ const TagPage = ({ history }) => {
             }}
             onValuesChange={console.log}
             onFinishFailed={console.log}
-            name="create-subject"
-            key="create-subject"
+            name="create-tag"
+            key="create-tag"
             onFinish={createHandler}
             visible={visible}
             onCancel={() => {
