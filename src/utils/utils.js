@@ -705,8 +705,8 @@ export const validFormData = (formData) => {
       message.error('Please select tag!');
       return false;
     }
-    if(!formData.content || formData.content.length < 100){
-      message.error('Invalid post content (at least 100 characters)!');
+    if(!formData.content || formData.content.length < 40){
+      message.error('Invalid post content (at least 40 characters)!');
       return false;
     }
     if(!formData.postType){
