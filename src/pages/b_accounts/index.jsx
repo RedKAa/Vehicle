@@ -69,7 +69,7 @@ const AccountListPage = () => {
           {
             title: 'ID',
             dataIndex: 'id',
-
+            sorter: (a, b) => parseInt(a.id) - parseInt(b.id),
             hideInForm: true,
             hideInSearch: true,
             copyable: false,
@@ -78,7 +78,7 @@ const AccountListPage = () => {
           {
             title: 'Tên',
             dataIndex: 'userName',
-            sorter: (a, b) => a.userName > b.userName,
+
             copyable: true,
           },
 

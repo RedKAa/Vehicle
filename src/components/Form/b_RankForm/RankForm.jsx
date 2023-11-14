@@ -41,24 +41,26 @@ const RankForm = ({ readonly = false, update = false, }) => {
           normalize={normalizeImg}
           name="imgLink"
           label="Hình xếp hạng"
+          rules={[{ required: true, message: 'Vui lòng chọn hình ảnh' }]}
           readonly={readonly}
         >
           <ImageUploader style={{ height: '100%' }} />
         </ProForm.Item>}
-        {readonly && <ProForm.Item
+        {/* {readonly && <ProForm.Item
           width="md"
           valuePropName="fileList"
           getValueFromEvent={normFile}
           normalize={normalizeImg}
           name="imgLink"
           label="Hình xếp hạng"
+          rules={[{ required: true, message: 'Vui lòng chọn trạng thái' }]}
           readonly={readonly}
         >
           <Image
             width={200}
             src="imgLink"
           />
-        </ProForm.Item>}
+        </ProForm.Item>} */}
       </ProForm.Group>
     </>
   );

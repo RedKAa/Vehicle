@@ -68,7 +68,7 @@ const AccountForm = ({ updateMode = false, providerMode = false, readonly = fals
               label: value.label,
               value: value.value,
             }))}
-            disabled={updateMode}
+            // disabled={updateMode}
         />
         <ProFormText
           rules={[

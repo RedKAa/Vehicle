@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 import { getPlaces } from '@/services/place';
 import { getProvidersByName } from '@/services/provider';
 import { getAvailableSellersByName } from '@/services/seller';
 import { getServiceByName } from '@/services/service';
 import { getServiceType } from '@/services/servicetype';
-import { getTags } from '@/services/tags';
+import { getPostType, getTags } from '@/services/tags';
 import { getAvailableAssessorsByAddress } from '@/services/v_assessor';
 import { getCustomerByPhone } from '@/services/v_customer';
 import { searchItemreceiptById } from '@/services/v_itemreceipt';

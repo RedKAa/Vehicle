@@ -168,7 +168,7 @@ const ResoTable = ({
 
 ResoTable.defaultProps = {
   pagination: {
-    defaultPageSize: 20,
+    defaultPageSize: 10,
   },
   confirmProps: {
     title: 'Xác nhận xóa',

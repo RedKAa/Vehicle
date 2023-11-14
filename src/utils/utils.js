@@ -2,6 +2,7 @@
 import { parse } from 'querystring';
 import moment from 'moment';
 import pathRegexp from 'path-to-regexp';
+import { message } from 'antd';
 
 /* eslint no-useless-escape:0 import/prefer-default-export:0 */
 const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
@@ -692,4 +693,33 @@ export const formatChartDataP = (data) => {
     }
   }
   return chartData;
+}
+
+export const validFormData = (formData) => {
+  if(formData){
+    if(!formData.title){
+      message.error('Invalid post title!');
+      return false;
+    }
+    if(!formData.tags || !formData.tags.length){
+      message.error('Please select tag!');
+      return false;
+    }
+    if(!formData.content || formData.content.length < 100){
+      message.error('Invalid post content (at least 100 characters)!');
+      return false;
+    }
+    if(!formData.postType){
+      message.error('Invalid post type!');
+      return false;
+    }
+    if(!formData.cover || !formData.cover.includes('http')){
+      message.error('Please upload cover image!');
+      return false;
+    }
+  } else {
+    return false;
+  }
+
+  return true;
 }

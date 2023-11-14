@@ -6,7 +6,7 @@ export const Column = [
   {
     title: 'ID',
     dataIndex: 'id',
-
+    sorter: (a, b) => a.id > b.id,
   },
 
   {

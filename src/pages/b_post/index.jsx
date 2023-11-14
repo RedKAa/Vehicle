@@ -1,13 +1,14 @@
-import { EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { EditOutlined, EllipsisOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { Button, Tag, Image, Input, Switch, Card, Avatar } from 'antd';
 import { ModalForm } from '@ant-design/pro-form';
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ResoTable from '@/components/ResoTable/ResoTable';
 import PostForm from '@/components/Form/b_PostForm/PostForm';
-import { activationById, createPost, deletePost, updatePost } from '@/services/b_post';
+import { activationById, createPost, deletePost, updatePost, updatePostById } from '@/services/b_post';
 import AsyncButton from '@/components/AsyncButton';
 import moment from 'moment';
+import { useHistory } from 'umi';
 // import Meta from 'antd/lib/card/Meta';
 
 const PostListPage = () => {
@@ -39,205 +40,51 @@ const PostListPage = () => {
   };
 
   const activationHandler = (data) => {
-    Promise.resolve(activationById(data.id, { ...data })).then(() => {
+    // Promise.resolve(activationById(data.id, { ...data })).then(() => {
+    //   ref.current?.reload();
+    // });
+    Promise.resolve(updatePostById(post.id, { ...post })).then(() => {
       ref.current?.reload();
     });
   };
-
+  const history = useHistory();
   return (
     <PageContainer title="Danh sách bài viết">
       <ResoTable
         search={true}
         actionRef={ref}
-        // rowSelection={rowSelection}
-        tableAlertOptionRender={({ _, __, onCleanSelected }) => [
-          <AsyncButton
-            isNeedConfirm={{
-              title: 'Xác nhận xóa bài viết',
-              content: 'Bạn có muốn xóa bài viết này không',
-              okText: 'Xác nhận',
-              cancelText: 'Không',
-            }}
-            btnProps={{ danger: true, type: 'link' }}
-            onClick={() => delectePostHandler().then(onCleanSelected)}
-            title={`Xóa ${selectedRows.length} bài viết`}
-            key={selectedRows[0]}
-          />,
-        ]}
         scroll={{
           x: 650,
         }}
         columns={[
-          // {
-          //   title: 'ID',
-          //   dataIndex: 'id',
-
-          //   hideInForm: true,
-          //   hideInSearch: true,
-          //   copyable: true,
-          // },
-          // {
-          //   title: 'Tiêu đề',
-          //   dataIndex: 'title',
-          //   // sorter: (a, b) => a.userName > b.userName,
-          // },
-          // {
-          //   title: 'Ảnh Bìa',
-          //   dataIndex: 'cover',
-          //   hideInSearch: true,
-          //   render: (_, { cover }) => cover && (<Image
-          //     width={150}
-          //     src={cover}
-          //   />)
-          // },
-          // {
-          //   title: 'Nội dung',
-          //   dataIndex: 'content',
-          //   render: (_, { content }) => (
-          //     <div style={{ border: '1px dotted', maxWidth: '800px', textOverflow: 'ellipsis', padding: '20px', height: '500px', 'overflow-y': 'scroll' }} dangerouslySetInnerHTML={{ __html: content }} />
-          //   ),
-          //   // sorter: (a, b) => a.userName > b.userName,
-          // },
           {
             title: 'Bài viết',
             dataIndex: 'id',
 
-
             width: 240,
             search: false,
-            render: (_, blog) => (
+            render: (_, post) => (
               <Card
                 hoverable
-                cover={<img src={blog.cover}  />}
+                cover={<img src={post.cover} />}
                 style={{ width: 350 }}
-              // actions={!isStoreManager ? [
-              //   <EditOutlined key={`edit ${blog.id}`} onClick={() => history.push(`/blog-post/${blog.id}`)} />,
-              // ] : []}
+
+                actions={[
+                  // <SettingOutlined key="setting" />,
+                  <EditOutlined key="edit" onClick={() => history.push(`/posts/${post.id}`)}/>,
+                  // <EllipsisOutlined key="ellipsis" />,
+                ]}
               >
-                {/* cover={
-                  <img
-                    width={200}
-                    alt="example"
-                    src={blog.cover}
-                  />
-                } */}
+
                 <Meta
-                  avatar={<Avatar src={blog.author.avatarLink} />}
-                  title={blog.title}
-                  // description={blog.content}
+                  avatar={<Avatar src={post.author.avatarLink} />}
+                  title={post.title}
+                  description={post.author.userName}
+                // description={post.content}
                 />
               </Card>
             ),
           },
-          // {
-          //   title: 'Vai Trò',
-          //   dataIndex: 'role',
-          //   valueEnum: {
-          //     Admin: {
-          //       text: 'Quản trị viên',
-          //     },
-          //     Teacher: {
-          //       text: 'Giảng viên',
-          //     },
-          //     Student: {
-          //       text: 'Sinh viên',
-          //     },
-          //   },
-          //   render: (text, record) => {
-          //     if (record.role === 'Student') {
-          //       return <Tag>Sinh viên</Tag>;
-          //     } else if (record.role === 'Teacher') {
-          //       return <Tag>Giảng viên</Tag>;
-          //     } else if (record.role === 'Admin') {
-          //       return <Tag>Quản trị viên</Tag>;
-          //     }
-          //     return <Tag>{record.role}</Tag>;
-          //   },
-          // },
-
-          // {
-          //   title: 'Email',
-          //   dataIndex: 'email',
-          //   copyable: true,
-          //   hideInSearch: false,
-          // },
-          // {
-          //   title: 'SĐT',
-          //   dataIndex: 'phone',
-          //   copyable: true,
-          // },
-
-          // {
-          //   title: 'Ngày Tạo',
-          //   dataIndex: 'createAt',
-          //   valueType: 'date',
-          //   hideInSearch: true,
-          //   // hideInTable: true,
-          //   sorter: (a, b) => a.createAt > b.createAt,
-          //   render: ({ createAt }) => (
-          //     <Tag color="#78cc7a">{moment(createAt).format('DD-MM-YYYY')}</Tag>
-          //   ),
-          // },
-          // {
-          //   title: 'Ngày Cập Nhật',
-          //   dataIndex: 'updateAt',
-          //   valueType: 'date',
-          //   hideInSearch: true,
-          //   // hideInTable: true,
-          //   sorter: (a, b) => a.updateAt > b.updateAt,
-          //   render: ({ createAt }) => (
-          //     <Tag color="#78cc7a">{moment(createAt).format('DD-MM-YYYY')}</Tag>
-          //   ),
-          // },
-
-
-          // {
-          //   title: 'Trạng thái',
-          //   dataIndex: 'status',
-          //   width: 150,
-          //   valueType: 'select',
-          //   valueEnum: {
-          //     true: { text: 'Đang hiển thị', status: 'Processing' },
-          //     false: { text: 'không hiển thị', status: 'Error' },
-          //   },
-          //   search: false,
-          //   align: 'center',
-          //   render: (_, post) => {
-          //     return (
-          //       <Switch
-          //         checked={post.status == 'Active' ? true : false}
-          //         onChange={(bool) => {
-          //           let status = bool ? 'Active' : 'Disable';
-          //           let id = post.id;
-          //           activationHandler({ id, status });
-          //         }}
-          //       />
-          //     );
-          //   },
-          // },
-          // {
-          //   title: 'Hành động',
-          //   search: false,
-          //   render: (_, post) => (
-          //     <ModalForm
-          //       title="Cập nhật bài viết"
-          //       modalProps={{
-          //         destroyOnClose: true,
-          //       }}
-          //       name="upadte-post"
-          //       key={`upadte-post_${post.id}`}
-          //       initialValues={post}
-          //       onFinish={(values) =>
-          //         updatePost(post.id, values)
-          //           .then(ref.current?.reload)
-          //           .then(() => true)
-          //       }
-          //       trigger={<Button type="link">Cập nhật</Button>}
-          //     >
-          //       <PostForm updateMode />
-          //     </ModalForm>
-          //   ),
-          // },
         ]}
         toolBarRender={() => [
           <ModalForm
@@ -283,11 +130,10 @@ const PostListPage = () => {
                 ];
               },
             }}
-            trigger={<Button icon={<PlusOutlined />} type="primary" onClick={() => setVisibleadd(true)} >Thêm bài viết</Button>}
+            trigger={<Button icon={<PlusOutlined />} type="primary" onClick={() => history.push(`/posts/create`)} >Tạo bài viết</Button>}
           >
             <PostForm />
-          </ModalForm>
-
+          </ModalForm>,
         ]}
         rowKey="id"
         resource="posts"

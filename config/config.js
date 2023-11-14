@@ -270,8 +270,34 @@ export default defineConfig({
               icon: 'FormOutlined',
               // component: './b_ranks/',
               // component: './b_post/',
-              component: './b_post/',
-              // authority: [ROLE_DATA.SYSTEM_ADMIN],
+              // component: './b_post/',
+              routes: [
+                    {
+                      path: '/posts/',
+                      redirect: '/posts/index',
+                    },
+                    {
+                      name: 'Tổng Quan',
+                      hideInMenu: true,
+                      path: '/posts/index',
+                      component: './b_post/index',
+                    },
+
+                    {
+                      name: 'Tạo bài viết',
+                      hideInMenu: true,
+                      path: '/posts/create',
+                      component: './b_post/create',
+                    },
+
+                    {
+                      name: 'Cập nhật bài viết',
+                      hideInMenu: true,
+                      path: '/posts/:updateId',
+                      component: './b_post/[updateId]',
+                    },
+
+                  ],
             },
 
             {
