@@ -59,7 +59,7 @@ const defaultFooterDom = (
       },
       {
         key: 'Ant Design',
-        title: 'FptBlog',
+        title: 'SEBlog',
         href: 'https://ant.design',
         blankTarget: true,
       },

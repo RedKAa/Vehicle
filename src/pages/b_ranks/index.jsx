@@ -136,9 +136,9 @@ const RankPage = ({ history }) => {
         trigger={<Button type="link">Cập nhật</Button>}
       >
         <RankForm updateMode />
-        <div style={{ marginTop: '20px', fontWeight: 'bold', fontStyle: 'italic'}}>
+        {/* <div style={{ marginTop: '20px', fontWeight: 'bold', fontStyle: 'italic'}}>
           Điểm xếp hạng = số cmt * 20 + số tim * 10
-        </div>
+        </div> */}
       </ModalForm>),
     }
   ];

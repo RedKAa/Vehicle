@@ -36,7 +36,7 @@ const Model = {
           response = {
             data: {
               access_token: 'MOCKUP_TOKEN',
-              name: 'FptBlog Admin',
+              name: 'SEBlog Admin',
               id: 1,
               role: 'Admin',
               avatarLink:

@@ -84,7 +84,7 @@ const DashBoard = (props) => {
       title: formatMessage({
         id: 'dashboard.position',
       }),
-      group: 'FptBlog',
+      group: 'SEBlog',
     },
   } = props;
 

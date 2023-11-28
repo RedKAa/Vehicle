@@ -10,7 +10,7 @@ const proSettings = {
   menu: {
     locale: true,
   },
-  title: 'FptBlog',
+  title: 'SEBlog',
   pwa: false,
   iconfontUrl: '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js',
 };

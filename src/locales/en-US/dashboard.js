@@ -2,7 +2,7 @@ export default {
   'dashboard.title': 'Dashboard',
   'dashboard.hello': 'Hello',
   'dashboard.position': 'Management',
-  'dashboard.brand': 'FptBlog',
+  'dashboard.brand': 'SEBlog',
   'dashboard.sync': 'Sync Products / Promotions',
   'dashboard.sync.title': 'Choose a store',
   'dashboard.sync.btn': 'Sync Product',
