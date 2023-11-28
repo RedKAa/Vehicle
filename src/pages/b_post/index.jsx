@@ -58,6 +58,12 @@ const PostListPage = () => {
         }}
         columns={[
           {
+            title: 'Tiêu đề',
+            dataIndex: 'title',
+            hideInTable: true,
+            // sorter: (a, b) => a.userName > b.userName,
+          },
+          {
             title: 'Bài viết',
             dataIndex: 'id',
 
