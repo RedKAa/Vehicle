@@ -95,7 +95,7 @@ const AccountForm = ({ updateMode = false, providerMode = false, readonly = fals
           name="status"
           width="md"
           readonly={readonly}
-          options={['Active','Disable']
+          options={['Active']
             .map((key) => ({
               label: key,
               value: key,

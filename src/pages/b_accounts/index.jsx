@@ -159,30 +159,30 @@ const AccountListPage = () => {
             />)
           },
 
-          {
-            title: 'Trạng thái',
-            dataIndex: 'status',
-            width: 150,
-            valueType: 'select',
-            valueEnum: {
-              true: { text: 'Đang hiển thị', status: 'Processing' },
-              false: { text: 'không hiển thị', status: 'Error' },
-            },
-            search: false,
-            align: 'center',
-            render: (_, account) => {
-              return (
-                <Switch
-                  checked={account.status == 'Active' ? true : false}
-                  onChange={(bool) => {
-                    let status = bool ? 'Active' : 'Disable';
-                    let id = account.id;
-                    activationHandler({ id, status });
-                  }}
-                />
-              );
-            },
-          },
+          // {
+          //   title: 'Trạng thái',
+          //   dataIndex: 'status',
+          //   width: 150,
+          //   valueType: 'select',
+          //   valueEnum: {
+          //     true: { text: 'Đang hiển thị', status: 'Processing' },
+          //     false: { text: 'không hiển thị', status: 'Error' },
+          //   },
+          //   search: false,
+          //   align: 'center',
+          //   render: (_, account) => {
+          //     return (
+          //       <Switch
+          //         checked={account.status == 'Active' ? true : false}
+          //         onChange={(bool) => {
+          //           let status = bool ? 'Active' : 'Disable';
+          //           let id = account.id;
+          //           activationHandler({ id, status });
+          //         }}
+          //       />
+          //     );
+          //   },
+          // },
           {
             title: 'Hành động',
             search: false,

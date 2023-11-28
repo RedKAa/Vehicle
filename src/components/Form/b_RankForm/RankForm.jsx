@@ -22,7 +22,36 @@ const RankForm = ({ readonly = false, update = false, }) => {
           width="md"
           readonly={readonly}
         />
-        <ProFormSelect
+        <ProFormText
+          rules={[
+            {
+              required: false,
+              min: 3,
+              max: 100,
+              message: 'Điền mô tả xếp hạng',
+            },
+          ]}
+          label="Mô tả xếp hạng"
+          name="description"
+          width="md"
+          readonly={readonly}
+        />
+        <ProFormText
+          rules={[
+            {
+              required: true,
+              min: 1,
+              max: 4,
+              message: 'Nhập điểm xếp hạng',
+            },
+          ]}
+          label="Điểm xếp hạng"
+          name="expRequired"
+          width="md"
+          readonly={readonly}
+        />
+
+        {/* <ProFormSelect
           label="Trạng thái"
           rules={[{ required: true, message: 'Vui lòng chọn trạng thái' }]}
           name="status"
@@ -33,7 +62,7 @@ const RankForm = ({ readonly = false, update = false, }) => {
               label: key,
               value: key,
             }))}
-        />
+        /> */}
         {!readonly && <ProForm.Item
           width="md"
           valuePropName="fileList"
@@ -62,6 +91,9 @@ const RankForm = ({ readonly = false, update = false, }) => {
           />
         </ProForm.Item>} */}
       </ProForm.Group>
+      <div style={{ fontWeight: 'bold', fontStyle: 'italic'}}>
+          Điểm xếp hạng = số cmt * 20 + số tim * 10
+        </div>
     </>
   );
 };

@@ -7,7 +7,9 @@ export const getRanks = (name) => {
   return request.get('/ranks', {
     params: {
       'name': name,
-      'status': 'Active'
+      'status': 'Active',
+      'exp': expRequired,
+      'des': description,
     },
     useCache: true,
   });

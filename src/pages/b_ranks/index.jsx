@@ -1,5 +1,5 @@
 import AsyncButton from '@/components/AsyncButton';
-import { Button, Tag, Image, Input, Switch  } from 'antd';
+import { Button, Tag, Image, Input, Switch } from 'antd';
 import ResoTable from '@/components/ResoTable/ResoTable';
 import { activationById, createRank, updateRank } from '@/services/b_ranks';
 import { PlusOutlined } from '@ant-design/icons';
@@ -34,7 +34,7 @@ const RankPage = ({ history }) => {
 
   const createHandler = async (values) => {
     console.log(`values`, values);
-    const res = await createRank({...values, rankId: 0});
+    const res = await createRank({ ...values, rankId: 0 });
     ref.current?.reload();
     setVisible(false);
     return true;
@@ -68,64 +68,85 @@ const RankPage = ({ history }) => {
       title: 'Ảnh xếp hạng',
       dataIndex: 'imgLink',
       hideInSearch: true,
-      render: (_, { imgLink }) =>  imgLink && (<Image
-      width={100}
-      src={imgLink}
-    />)
+      render: (_, { imgLink }) => imgLink && (<Image
+        width={100}
+        src={imgLink}
+      />)
     },
     {
-      title: 'Trạng thái',
-      dataIndex: 'status',
-      width: 150,
-      valueType: 'select',
-      valueEnum: {
-        true: { text: 'Đang hiển thị', status: 'Processing' },
-        false: { text: 'không hiển thị', status: 'Error' },
-      },
-      search: false,
-      align: 'center',
-      render: (_, rank) => {
-        return (
-          <Switch
-            checked={rank.status == 'Active' ? true : false}
-            onChange={(bool) => {
-              let status = bool ? 'Active' : 'Disable';
-              let id = rank.id;
-              activationHandler({id, status});
-            }}
-          />
-        );
-      },
+      title: 'Exp',
+      dataIndex: 'expRequired',
+      hideInSearch: true,
+      //   render: (_, { imgLink }) =>  imgLink && (<Image
+      //   width={100}
+      //   src={imgLink}
+      // />)
     },
+    {
+      title: 'Mô tả',
+      dataIndex: 'description',
+      hideInSearch: true,
+      //   render: (_, { imgLink }) =>  imgLink && (<Image
+      //   width={100}
+      //   src={imgLink}
+      // />)
+    },
+    // {
+    //   title: 'Trạng thái',
+    //   dataIndex: 'status',
+    //   width: 150,
+    //   valueType: 'select',
+    //   valueEnum: {
+    //     true: { text: 'Đang hiển thị', status: 'Processing' },
+    //     false: { text: 'không hiển thị', status: 'Error' },
+    //   },
+    //   search: false,
+    //   align: 'center',
+    //   render: (_, rank) => {
+    //     return (
+    //       <Switch
+    //         checked={rank.status == 'Active' ? true : false}
+    //         onChange={(bool) => {
+    //           let status = bool ? 'Active' : 'Disable';
+    //           let id = rank.id;
+    //           activationHandler({id, status});
+    //         }}
+    //       />
+    //     );
+    //   },
+    // },
     {
       title: 'Hành động',
       search: false,
       render: (_, rank) =>
-        (<ModalForm
-          title="Cập nhật xếp hạng"
-          modalProps={{
-            destroyOnClose: true,
-          }}
-          width="500px"
-          name="upadte-rank"
-          key={`upadte-rank_${rank.id}`}
-          initialValues={rank}
-          onFinish={(values) =>
-            updateRank(rank.id, values)
-              .then(ref.current?.reload)
-              .then(() => true)
-          }
-          trigger={<Button type="link">Cập nhật</Button>}
-        >
-          <RankForm updateMode/>
-        </ModalForm>),
+      (<ModalForm
+        title="Cập nhật xếp hạng"
+        modalProps={{
+          destroyOnClose: true,
+        }}
+        width="500px"
+        name="upadte-rank"
+        key={`upadte-rank_${rank.id}`}
+        initialValues={rank}
+        onFinish={(values) =>
+          updateRank(rank.id, values)
+            .then(ref.current?.reload)
+            .then(() => true)
+        }
+        trigger={<Button type="link">Cập nhật</Button>}
+      >
+        <RankForm updateMode />
+        <div style={{ marginTop: '20px', fontWeight: 'bold', fontStyle: 'italic'}}>
+          Điểm xếp hạng = số cmt * 20 + số tim * 10
+        </div>
+      </ModalForm>),
     }
   ];
 
   return (
     <PageContainer>
       <ResoTable
-        additionParams={{ orderBy: 'createAt-dec'}}
+        additionParams={{ orderBy: 'createAt-dec' }}
         rowSelection={rowSelection}
         tableAlertOptionRender={({ _, __, onCleanSelected }) => [
           <AsyncButton
