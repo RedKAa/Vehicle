@@ -47,7 +47,7 @@ const UpdatePost = (props) => {
     if (data !== undefined) {
       console.log(data);
       let tagids = data.tags.map(data => (data.id));
-      form.setFieldsValue({ ...data, tags: tagids });
+      form.setFieldsValue({ ...data, tags: tagids, status: data.status == 'Active' });
     }
   },[data, form])
 
